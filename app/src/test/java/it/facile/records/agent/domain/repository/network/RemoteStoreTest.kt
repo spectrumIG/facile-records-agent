@@ -9,7 +9,7 @@ import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
 import it.facile.records.agent.domain.entity.remote.BeerDetailDTO
-import it.facile.records.agent.domain.entity.remote.BeersListDTOItem
+import it.facile.records.agent.domain.entity.remote.RecordDTO
 import it.facile.records.agent.util.MainCoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
@@ -34,7 +34,7 @@ class RemoteStoreTest {
 
     private val mockedSuccessResponseList =
         listOf(
-            mockk<BeersListDTOItem>(relaxed = true) {
+            mockk<RecordDTO>(relaxed = true) {
                 every { id } returns 1
                 every { description } returns "Beatiful long description"
                 every { tagline } returns "Beatiful long tagline"
@@ -57,18 +57,18 @@ class RemoteStoreTest {
     @ExperimentalStdlibApi
     @Test
     fun `test on network error it returns correctly failed for list of beers`() {
-        coEvery { restApi.getAllBeersWithPagination(any(), any()) } returns Response.error(404, "responseBody".toResponseBody())
+        coEvery { restApi.retrieveRecordsFromRemote(any(), any()) } returns Response.error(404, "responseBody".toResponseBody())
 
-        val response = runBlocking { remoteStore.getAllBeersList(1, null, null) }
+        val response = runBlocking { remoteStore.getAllrecords(1, null, null) }
         assertThat(response.failed).isTrue()
     }
 
     @ExperimentalStdlibApi
     @Test
     fun `test on network success it returns correctly success for list of beers`() {
-        coEvery { restApi.getAllBeersWithPagination(any(), any()) } returns Response.success(mockedSuccessResponseList)
+        coEvery { restApi.retrieveRecordsFromRemote(any(), any()) } returns Response.success(mockedSuccessResponseList)
 
-        val response = runBlocking { remoteStore.getAllBeersList(1, null, null) }
+        val response = runBlocking { remoteStore.getAllrecords(1, null, null) }
         assertThat(response.succeded).isTrue()
     }
 

@@ -1,0 +1,61 @@
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/detail_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="8dp"
+        tools:context=".recorddetail.BeerDetailFragment"
+        >
+
+        <TextView
+            android:id="@+id/beer_det_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:text="@{viewModel.recordDetail.name}"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.MyTheme.Headline4"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Nome della birra"
+            />
+        <TextView
+            android:id="@+id/beer_det_tagline"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.recordDetail.tagline}"
+
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.MyTheme.Headline6"
+            android:textColor="@color/primaryTextColor"
+            app:layout_constraintEnd_toEndOf="@+id/beer_det_name"
+            app:layout_constraintStart_toStartOf="@+id/beer_det_name"
+            app:layout_constraintTop_toBottomOf="@+id/beer_det_name"
+            tools:text="Tag line molto bellina "
+            />
+        <TextView
+            android:id="@+id/beer_det_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/cormorant_garamond"
+            android:textAppearance="@style/TextAppearance.MyTheme.Subtitle2"
+            android:textColor="@color/primaryTextColor"
+            android:textStyle="italic"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/beer_det_tagline"
+            tools:text="Birrificata:04/2014"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

@@ -1,24 +1,24 @@
-package it.facile.records.agent.beerdetail
+package it.facile.records.agent.recorddetail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import it.facile.records.agent.di.BeerDetail
-import it.facile.records.agent.domain.entity.local.BeerDetailUI
-import it.facile.records.agent.domain.usecase.BeerDetailUseCase
+import it.facile.records.agent.di.RecordDetail
+import it.facile.records.agent.domain.entity.local.RecordDetailUI
+import it.facile.records.agent.domain.usecase.RecordDetailUseCase
 import it.facile.records.agent.domain.usecase.UseCase
 import it.facile.records.agent.library.android.entity.Result
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class BeerDetailViewModel @Inject constructor(
-    @BeerDetail private val usecase: UseCase,
+class RecordDetailViewModel @Inject constructor(
+    @RecordDetail private val usecase: UseCase,
 ) : ViewModel() {
-    private val _beerDetail = MutableLiveData<BeerDetailUI>()
-    val beerDetail: LiveData<BeerDetailUI>
+    private val _beerDetail = MutableLiveData<RecordDetailUI>()
+    val recordDetail: LiveData<RecordDetailUI>
         get() = _beerDetail
 
     private val _isLoading = MutableLiveData<Boolean>()
@@ -30,7 +30,7 @@ class BeerDetailViewModel @Inject constructor(
         get() = _showError
 
     fun fetchBeerDetail(id: Int) {
-        val beerDetailUseCase = usecase as BeerDetailUseCase
+        val beerDetailUseCase = usecase as RecordDetailUseCase
 
         viewModelScope.launch {
             when (val retrieveBeerDetailBy = beerDetailUseCase.retrieveBeerDetailBy(id)) {

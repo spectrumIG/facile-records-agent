@@ -7,7 +7,7 @@ import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
-import it.facile.records.agent.domain.entity.local.BeerDetail
+import it.facile.records.agent.domain.entity.local.RecordDetail
 import it.facile.records.agent.domain.entity.local.SimpleBeer
 import it.facile.records.agent.domain.repository.Repository
 import it.facile.records.agent.library.android.entity.Result
@@ -22,7 +22,7 @@ import org.junit.runners.JUnit4
 
 
 @RunWith(JUnit4::class)
-class BeersListUsecaseTest {
+class RecordsListUsecaseTest {
     @ExperimentalCoroutinesApi
     @get:Rule
     val coroutineScope = MainCoroutineRule()
@@ -50,7 +50,7 @@ class BeersListUsecaseTest {
             every { tagline } returns "Beatiful long tagline"
         })
 
-    private val mockSuccessBeerDetail = listOf<BeerDetail>(mockk(relaxed = true) {
+    private val mockSuccessBeerDetail = listOf<RecordDetail>(mockk(relaxed = true) {
         every { id } returns 1
         every { name } returns "Punk IPA"
         every { firstBrewed } returns "12-2012"
@@ -59,7 +59,7 @@ class BeersListUsecaseTest {
 
     private val mockErrorResult: Result<List<SimpleBeer>> = Result.Error(Exception("error"))
 
-    private lateinit var useCase: BeersListUsecase
+    private lateinit var useCase: RecordsListUsecase
 
     @MockK(relaxed = true)
     private lateinit var repository: Repository
@@ -67,14 +67,14 @@ class BeersListUsecaseTest {
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
-        useCase = BeersListUsecase(repository)
+        useCase = RecordsListUsecase(repository)
 
     }
 
     @ExperimentalCoroutinesApi
     @Test
     fun `verify that one page requested one page is returned as successfull`() {
-        coEvery { repository.fetchAllBeerPaginated(1) } returns Result.Success(mockSuccesResultList)
+        coEvery { repository.getAllRecords(1) } returns Result.Success(mockSuccesResultList)
 
         val retrieveBeersPaginated = runBlocking() { useCase.retrieveBeersPaginated(1) }
 
@@ -84,7 +84,7 @@ class BeersListUsecaseTest {
     @ExperimentalCoroutinesApi
     @Test
     fun `verify simple paginated wrong call correct answer`() {
-        coEvery { repository.fetchAllBeerPaginated(any()) } returns mockErrorResult
+        coEvery { repository.getAllRecords(any()) } returns mockErrorResult
 
         val retrieveBeersPaginated = runBlocking { useCase.retrieveBeersPaginated(1) }
 

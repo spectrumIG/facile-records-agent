@@ -7,10 +7,10 @@
 
     <fragment
         android:id="@+id/beersListFragment"
-        android:name="it.facile.records.agent.beerslist.BeersListFragment"
+        android:name="it.facile.records.agent.recordslist.RecordsListFragment"
         android:label="@string/title"
 
-        tools:layout="@layout/beers_list_fragment" >
+        tools:layout="@layout/records_list_fragment" >
         <action
             android:id="@+id/action_beersListFragment_to_beerDetailFragment"
             app:destination="@id/beerDetailFragment"
@@ -21,9 +21,9 @@
     </fragment>
     <fragment
         android:id="@+id/beerDetailFragment"
-        android:name="it.facile.records.agent.beerdetail.BeerDetailFragment"
+        android:name="it.facile.records.agent.recorddetail.RecordDetailFragment"
         android:label="Beer Detail"
-        tools:layout="@layout/beer_detail_fragment" >
+        tools:layout="@layout/record_detail_fragment" >
         <argument
             android:name="beerId"
             app:argType="integer" />

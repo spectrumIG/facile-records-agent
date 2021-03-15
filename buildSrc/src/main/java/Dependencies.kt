@@ -23,7 +23,7 @@ object Versions {
     const val LIVEDATAKTX = "2.2.0"
     const val VIEWMODELKTX = "2.2.0"
     const val NAVIGATION = "2.3.0"
-    const val ROOM = "2.2.5"
+    const val ROOM = "2.2.6"
     const val TIMBER = "4.7.1"
     const val MATERIAL = "1.3.0-alpha04"
     const val RECYCLER = "1.1.0"

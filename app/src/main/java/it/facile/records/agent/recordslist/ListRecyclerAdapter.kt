@@ -1,4 +1,4 @@
-package it.facile.records.agent.beerslist
+package it.facile.records.agent.recordslist
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,9 +6,6 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import coil.imageLoader
-import coil.load
-import it.facile.records.agent.R
 import it.facile.records.agent.databinding.BeerItemBinding
 import it.facile.records.agent.domain.entity.local.BeerForUi
 
@@ -40,16 +37,11 @@ class BeersLinearRecyclerAdapter :
             item: BeerForUi,
         ) {
             with(itemView) {
-                binding.photoImg.load(item.imageUrl, context.imageLoader) {
-                    crossfade(true)
-                    error(R.drawable.ic_download_error)
-                    placeholder(R.drawable.ic_beer_mug_empty_svgrepo_com)
-                }
                 binding.beerName.text = item.name
                 binding.beerTagLine.text = item.tagline
                 binding.beerFirstBrewd.text = item.date
                 binding.beerItemContainer.setOnClickListener {
-                    val toDetail = BeersListFragmentDirections.actionBeersListFragmentToBeerDetailFragment(item.id)
+                    val toDetail = RecordsListFragmentDirections.actionBeersListFragmentToBeerDetailFragment(item.id)
                     findNavController().navigate(toDetail)
                 }
             }

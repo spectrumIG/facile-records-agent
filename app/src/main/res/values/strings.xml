@@ -1,32 +1,9 @@
 <resources>
-    <string name="app_name">PunkBeersList</string>
-    <string name="title">Beers List</string>
-    <string name="compute">Compute</string>
-    <string name="notification_title">The Result is:</string>
+    <string name="app_name">Records Agents</string>
+    <string name="title">Records List</string>
 
-    <string name="abv_label">abv</string>
-    <string name="ibu_label">ibu</string>
-    <string name="target_fg_label">target fg</string>
-    <string name="target_og_label">target og</string>
-    <string name="ebc_label">ebc</string>
-    <string name="srm_label">srm</string>
-    <string name="ph_label">ph</string>
-    <string name="attenuation_level_label">Att. level</string>
-    <string name="brewed_before">Brewed: %1$s</string>
-    <string name="volume_label">Volume</string>
-    <string name="boil_volume_label">Boil Vol.</string>
-    <string name="fermentation_label">Fermentation: </string>
-    <string name="food_pairing">Food paring</string>
-    <string name="brewers_tips">Brewers Tips</string>
-    <string name="contributed_by">Contributed by</string>
-    <string name="breweing_method">Method:</string>
-    <string name="mash_temp_label">Mash temperatures:</string>
-    <string name="twist_label">Twist: </string>
-    <string name="indredients_label">Ingredients:</string>
-    <string name="malts_label">Malts:</string>
-    <string name="hops_label">Hops:</string>
-    <string name="yeast_label">Yeast:</string>
     <string name="alert_error_message">Sorry, there were some problems with the beer. Please,come back later.</string>
     <string name="error_alert_title">Ops!</string>
+    <string name="empty_records_list_label">No records found</string>
 
 </resources>

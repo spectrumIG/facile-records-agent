@@ -1,4 +1,4 @@
-package it.facile.records.agent.beerslist
+package it.facile.records.agent.recordslist
 
 import InstantTaskExecutorRule
 import com.nhaarman.mockitokotlin2.any
@@ -8,7 +8,7 @@ import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
 import it.facile.records.agent.domain.entity.local.BeerForUi
-import it.facile.records.agent.domain.usecase.BeersListUsecase
+import it.facile.records.agent.domain.usecase.RecordsListUsecase
 import it.facile.records.agent.library.android.entity.Result
 import it.facile.records.agent.util.MainCoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -17,17 +17,17 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-class BeersListViewModelTest {
+class RecordsListViewModelTest {
     @get:Rule
     val instantExecutorRule = InstantTaskExecutorRule()
 
     @get:Rule
     val coroutineScope = MainCoroutineRule()
 
-    private lateinit var mainViewModel: BeersListViewModel
+    private lateinit var mainViewModel: RecordsListViewModel
 
     @MockK(relaxed = true)
-    private val useCase = mockk<BeersListUsecase>()
+    private val useCase = mockk<RecordsListUsecase>()
 
     private val mockSuccesResultList = listOf<BeerForUi>(
         mockk(relaxed = true) {
@@ -60,7 +60,7 @@ class BeersListViewModelTest {
     @Before
     fun setup() {
         MockKAnnotations.init(this)
-        mainViewModel = BeersListViewModel(useCase)
+        mainViewModel = RecordsListViewModel(useCase)
 
     }
 

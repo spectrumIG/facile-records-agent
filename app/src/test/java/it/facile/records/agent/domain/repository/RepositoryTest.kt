@@ -59,8 +59,8 @@ class RepositoryTest {
 
     @Test
     fun `verify list is returned correctly when input is correct`() {
-        coEvery { remoteStore.getAllBeersList(any(),any(),any()) } returns Result.Success(mockSuccesResultList)
-        val result = runBlocking { repository.fetchAllBeerPaginated(1) }
+        coEvery { remoteStore.getAllrecords(any(),any(),any()) } returns Result.Success(mockSuccesResultList)
+        val result = runBlocking { repository.getAllRecords(1) }
         assertEquals(true,result.succeded)
 
         val success = result as Result.Success
@@ -68,8 +68,8 @@ class RepositoryTest {
     }
     @Test
     fun `verify error is returned correctly if wrong input`() {
-        coEvery { remoteStore.getAllBeersList(any(),any(),any()) } throws Exception("test")
-        val result = runBlocking { repository.fetchAllBeerPaginated(1) }
+        coEvery { remoteStore.getAllrecords(any(),any(),any()) } throws Exception("test")
+        val result = runBlocking { repository.getAllRecords(1) }
         assertEquals(true,result.failed)
 
         val error = result as Result.Error

@@ -1,19 +1,19 @@
 package it.facile.records.agent.domain.repository
 
+import it.facile.records.agent.di.LocalDataStore
 import it.facile.records.agent.di.RemoteDataStore
-import it.facile.records.agent.domain.entity.local.BeerDetail
+import it.facile.records.agent.domain.entity.local.RecordDetail
 import it.facile.records.agent.domain.entity.local.SimpleBeer
 import it.facile.records.agent.domain.repository.network.RemoteStore
 import it.facile.records.agent.library.android.entity.Result
 import javax.inject.Inject
+import it.facile.records.agent.domain.repository.database.LocalDataStore as LocalData
 
 interface Repository {
 
-    suspend fun fetchAllBeerPaginated(page: Int): Result<List<SimpleBeer?>>
+    suspend fun getAllRecords(page: Int): Result<List<SimpleBeer?>>
 
-    suspend fun fetchPaginatedBeersForDate(page: Int, brewedBefore: String, brewedAfter: String): Result<List<SimpleBeer?>>
-
-    suspend fun fetchBeerDetailBy(id:Int) : Result<List<BeerDetail?>>
+    suspend fun fetchRecordDetailBy(id: Int): Result<List<RecordDetail?>>
 }
 
 /**
@@ -25,28 +25,21 @@ interface Repository {
 
 @ExperimentalStdlibApi
 class RepositoryImpl @Inject constructor(
+    @LocalDataStore private val localDataStore: LocalData,
     @RemoteDataStore private val remoteDataStore: RemoteStore
 ) : Repository {
 
-    override suspend fun fetchAllBeerPaginated(page: Int): Result<List<SimpleBeer?>> {
+    override suspend fun getAllRecords(page: Int): Result<List<SimpleBeer?>> {
         return try {
-            remoteDataStore.getAllBeersList(page = page, null, null)
+            remoteDataStore.getAllrecords()
         } catch (e: Exception) {
             Result.Error(e)
         }
     }
 
-    override suspend fun fetchPaginatedBeersForDate(page: Int, brewedBefore: String, brewedAfter: String): Result<List<SimpleBeer?>> {
+    override suspend fun fetchRecordDetailBy(id: Int): Result<List<RecordDetail?>> {
         return try {
-            remoteDataStore.getAllBeersList(page = page, brewedBefore = brewedBefore, brewedAfter = brewedAfter)
-        } catch (e: Exception) {
-            Result.Error(e)
-        }
-    }
-
-    override suspend fun fetchBeerDetailBy(id: Int): Result<List<BeerDetail?>> {
-        return try {
-            remoteDataStore.getBeerDetailBy(id)
+            localDataStore.gerRecordDetailBy(id)
         } catch (e: Exception) {
             Result.Error(e)
         }

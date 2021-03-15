@@ -1,41 +1,36 @@
-package it.facile.records.agent.beerdetail
+package it.facile.records.agent.recorddetail
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.activity.addCallback
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import it.facile.records.agent.BaseFragment
 import it.facile.records.agent.R
-import it.facile.records.agent.databinding.BeerDetailFragmentBinding
-import timber.log.Timber
 
 @AndroidEntryPoint
-class BeerDetailFragment : BaseFragment(R.layout.beer_detail_fragment) {
-    private val args: BeerDetailFragmentArgs by navArgs()
+class RecordDetailFragment : BaseFragment(R.layout.record_detail_fragment) {
+    private val args: RecordDetailFragmentArgs by navArgs()
 
-    private val detailViewModel: BeerDetailViewModel by activityViewModels()
+    private val detailViewModel: RecordDetailViewModel by activityViewModels()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
-        val detailBindings = DataBindingUtil.inflate<BeerDetailFragmentBinding>(
-            inflater,
-            R.layout.beer_detail_fragment,
-            container,
-            false)
-            .apply {
-                viewModel = detailViewModel
-                lifecycleOwner = viewLifecycleOwner
-            }
-
-        return detailBindings.root
-    }
+//    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+//
+//        val detailBindings = DataBindingUtil.inflate<RecordDetailFragmentBinding>(
+//            inflater,
+//            R.layout.record_detail_fragment,
+//            container,
+//            false)
+//            .apply {
+//                viewModel = detailViewModel
+//                lifecycleOwner = viewLifecycleOwner
+//            }
+//
+//        return detailBindings.root
+//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -45,8 +40,6 @@ class BeerDetailFragment : BaseFragment(R.layout.beer_detail_fragment) {
         }
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, addCallback)
-
-        Timber.d("Birra scelta con id = ${args.beerId}")
 
         detailViewModel.fetchBeerDetail(args.beerId)
         detailViewModel.showError.observe(viewLifecycleOwner) { show ->

@@ -5,8 +5,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import it.facile.records.agent.domain.repository.Repository
-import it.facile.records.agent.domain.usecase.BeerDetailUseCase
-import it.facile.records.agent.domain.usecase.BeersListUsecase
+import it.facile.records.agent.domain.usecase.RecordDetailUseCase
+import it.facile.records.agent.domain.usecase.RecordsListUsecase
 import it.facile.records.agent.domain.usecase.UseCase
 import javax.inject.Qualifier
 import javax.inject.Singleton
@@ -17,23 +17,23 @@ object DomainModule {
 
     @Provides
     @Singleton
-    @BeersList
+    @RecordsList
     fun provideListUseCase(repository: Repository): UseCase {
-        return BeersListUsecase(repository)
+        return RecordsListUsecase(repository)
     }
     @Provides
     @Singleton
-    @BeerDetail
+    @RecordDetail
     fun provideDetailUseCase(repository: Repository): UseCase {
-        return BeerDetailUseCase(repository)
+        return RecordDetailUseCase(repository)
     }
 }
 
 
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
-annotation class BeersList
+annotation class RecordsList
 
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
-annotation class BeerDetail
+annotation class RecordDetail

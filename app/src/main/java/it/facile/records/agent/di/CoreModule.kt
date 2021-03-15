@@ -1,13 +1,9 @@
 package it.facile.records.agent.di
 
-import android.content.Context
-import coil.ImageLoader
-import coil.util.DebugLogger
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import it.facile.records.agent.BuildConfig
 import it.facile.records.agent.domain.repository.network.RestApi
@@ -20,11 +16,17 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import javax.inject.Singleton
 
+/**
+ * This is the main Hilt modules. I'll keep the Kotlin serializations, Retrofit
+ * and okHttp libs even if the remote repo is mocked
+ *
+ *
+ * */
 @ExperimentalSerializationApi
 @Module
 @InstallIn(SingletonComponent::class)
 object CoreModule {
-    const val BASE_URL = "https://api.punkapi.com/v2/"
+    const val BASE_URL = "https://www.facile.test.it/"
 
     @Singleton
     @Provides
@@ -81,14 +83,5 @@ object CoreModule {
         }
         interceptors.add(loggingInterceptor)
         return interceptors
-    }
-
-    @Provides
-    fun provideCoilImageLoader(@ApplicationContext context: Context): ImageLoader {
-        return if (BuildConfig.DEBUG) {
-            ImageLoader.Builder(context).logger(DebugLogger()).build()
-        } else {
-            ImageLoader.Builder(context).build()
-        }
     }
 }

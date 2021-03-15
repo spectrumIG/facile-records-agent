@@ -1,11 +1,11 @@
-package it.facile.records.agent.beerslist
+package it.facile.records.agent.recordslist
 
 import androidx.recyclerview.widget.RecyclerView
 import it.facile.records.agent.widgets.EndlessRecyclerViewScrollListener
 
 class BeersEndelessListScrollListener(
     layoutManager: RecyclerView.LayoutManager?,
-    private val viewModel: BeersListViewModel,
+    private val viewModel: RecordsListViewModel,
     private val isFiltered: Boolean,
 
     ) : EndlessRecyclerViewScrollListener(layoutManager) {
