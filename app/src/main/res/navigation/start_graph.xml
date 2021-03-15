@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/start_graph.xml"
+    app:startDestination="@id/beersListFragment">
+
+    <fragment
+        android:id="@+id/beersListFragment"
+        android:name="it.facile.records.agent.beerslist.BeersListFragment"
+        android:label="@string/title"
+
+        tools:layout="@layout/beers_list_fragment" >
+        <action
+            android:id="@+id/action_beersListFragment_to_beerDetailFragment"
+            app:destination="@id/beerDetailFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+    </fragment>
+    <fragment
+        android:id="@+id/beerDetailFragment"
+        android:name="it.facile.records.agent.beerdetail.BeerDetailFragment"
+        android:label="Beer Detail"
+        tools:layout="@layout/beer_detail_fragment" >
+        <argument
+            android:name="beerId"
+            app:argType="integer" />
+    </fragment>
+</navigation>
