@@ -23,14 +23,6 @@ class RecordsListFragment : BaseFragment(R.layout.records_list_fragment) {
     private val viewModel: RecordsListViewModel by activityViewModels()
 
     private lateinit var recyclerView: RecyclerView
-    private var page = 1
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
-
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -45,13 +37,12 @@ class RecordsListFragment : BaseFragment(R.layout.records_list_fragment) {
             adapter = beersListAdapter
         }
 
-        viewModel.fetchBeersPaginatedWith(page)
-
+        viewModel.getAllRecords()
 
         val listMainRefreshContainer = fragmentBindings!!.listMainRefreshContainer
-        listMainRefreshContainer.setOnRefreshListener {
-            viewModel.fetchBeersPaginatedWith(page)
 
+        listMainRefreshContainer.setOnRefreshListener {
+            viewModel.getAllRecords()
         }
 
         viewModel.showProgress.observe(viewLifecycleOwner) { show ->
@@ -81,14 +72,13 @@ class RecordsListFragment : BaseFragment(R.layout.records_list_fragment) {
                 }
             }
         }
-
     }
 
     private fun enableErrorMessage() {
         fragmentBindings!!.mainBeersRecycler.visibility = View.GONE
         fragmentBindings!!.listMainRefreshContainer.visibility = View.VISIBLE
         fragmentBindings!!.noItemText.visibility = View.VISIBLE
-        Snackbar.make(fragmentBindings!!.root,"Errors while retrieving records, please try again later",Snackbar.LENGTH_LONG) //TODO FIX This message
+        Snackbar.make(fragmentBindings!!.root,getString(R.string.main_list_error_msg),Snackbar.LENGTH_LONG) //TODO FIX This message
     }
 
     private fun enableList() {

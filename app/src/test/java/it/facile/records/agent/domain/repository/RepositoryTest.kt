@@ -7,7 +7,7 @@ import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
-import it.facile.records.agent.domain.entity.local.SimpleBeer
+import it.facile.records.agent.domain.entity.local.Record
 import it.facile.records.agent.domain.repository.network.RemoteStore
 import it.facile.records.agent.library.android.entity.Result
 import it.facile.records.agent.util.MainCoroutineRule
@@ -33,7 +33,7 @@ class RepositoryTest {
 
     private lateinit var repository: Repository
 
-    private val mockSuccesResultList = listOf<SimpleBeer>(
+    private val mockSuccesResultList = listOf<Record>(
         mockk(relaxed = true) {
             every { id } returns 1
             every { date } returns "12-2012"

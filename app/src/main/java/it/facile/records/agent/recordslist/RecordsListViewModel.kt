@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import it.facile.records.agent.di.RecordsList
-import it.facile.records.agent.domain.entity.local.BeerForUi
+import it.facile.records.agent.domain.entity.local.RecordForUi
 import it.facile.records.agent.domain.usecase.RecordsListUsecase
 import it.facile.records.agent.domain.usecase.UseCase
 import it.facile.records.agent.library.android.entity.Result
@@ -17,8 +17,8 @@ import javax.inject.Inject
 class RecordsListViewModel @Inject constructor(
    @RecordsList private val usecase: UseCase
 ) : ViewModel() {
-    private val _beers = MutableLiveData<Result<List<BeerForUi>>>()
-    val beers: LiveData<Result<List<BeerForUi>>>
+    private val _beers = MutableLiveData<Result<List<RecordForUi>>>()
+    val beers: LiveData<Result<List<RecordForUi>>>
         get() = _beers
 
     private val _showProgress = MutableLiveData(false)
@@ -27,13 +27,13 @@ class RecordsListViewModel @Inject constructor(
 
 
 
-    fun fetchBeersPaginatedWith(page: Int) {
-        val beersListUsecase = usecase as RecordsListUsecase
+    fun getAllRecords() {
+        val recordsListUsecase = usecase as RecordsListUsecase
 
         viewModelScope.launch {
             _showProgress.postValue(true)
 
-            _beers.postValue(beersListUsecase.retrieveBeersPaginated(page))
+            _beers.postValue(recordsListUsecase.retrieveBeersPaginated())
 
             _showProgress.postValue(false)
         }

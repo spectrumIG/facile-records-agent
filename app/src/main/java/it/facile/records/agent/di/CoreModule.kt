@@ -26,6 +26,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object CoreModule {
+    //TODO: Attach HTTPMOCK https://github.com/speekha/httpmocker
     const val BASE_URL = "https://www.facile.test.it/"
 
     @Singleton

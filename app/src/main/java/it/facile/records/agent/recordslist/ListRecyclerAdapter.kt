@@ -6,23 +6,23 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import it.facile.records.agent.databinding.BeerItemBinding
-import it.facile.records.agent.domain.entity.local.BeerForUi
+import it.facile.records.agent.databinding.RecordItemBinding
+import it.facile.records.agent.domain.entity.local.RecordForUi
 
 class BeersLinearRecyclerAdapter :
-    ListAdapter<BeerForUi,BeersLinearRecyclerAdapter.ViewHolder>(BeersDiffCallback()) {
+    ListAdapter<RecordForUi, BeersLinearRecyclerAdapter.ViewHolder>(BeersDiffCallback()) {
 
-    private var data: List<BeerForUi> = ArrayList()
+    private var data: List<RecordForUi> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(BeerItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return ViewHolder(RecordItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun getItemCount() = data.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(data[position])
 
-    fun setData(data: List<BeerForUi>) {
+    fun setData(data: List<RecordForUi>) {
         (this.data as ArrayList).addAll(data)
         notifyDataSetChanged()
     }
@@ -32,14 +32,13 @@ class BeersLinearRecyclerAdapter :
         notifyDataSetChanged()
     }
 
-    class ViewHolder(private val binding: BeerItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(private val binding: RecordItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(
-            item: BeerForUi,
+            item: RecordForUi,
         ) {
             with(itemView) {
-                binding.beerName.text = item.name
-                binding.beerTagLine.text = item.tagline
-                binding.beerFirstBrewd.text = item.date
+                binding.recordName.text = item.recordName
+                // TODO: 15/03/21 Adds check in case of files
                 binding.beerItemContainer.setOnClickListener {
                     val toDetail = RecordsListFragmentDirections.actionBeersListFragmentToBeerDetailFragment(item.id)
                     findNavController().navigate(toDetail)
@@ -49,12 +48,12 @@ class BeersLinearRecyclerAdapter :
     }
 }
 
-private class BeersDiffCallback : DiffUtil.ItemCallback<BeerForUi>() {
-    override fun areItemsTheSame(oldItem: BeerForUi, newItem: BeerForUi): Boolean {
+private class BeersDiffCallback : DiffUtil.ItemCallback<RecordForUi>() {
+    override fun areItemsTheSame(oldItem: RecordForUi, newItem: RecordForUi): Boolean {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: BeerForUi, newItem: BeerForUi): Boolean {
+    override fun areContentsTheSame(oldItem: RecordForUi, newItem: RecordForUi): Boolean {
         return oldItem == newItem
     }
 

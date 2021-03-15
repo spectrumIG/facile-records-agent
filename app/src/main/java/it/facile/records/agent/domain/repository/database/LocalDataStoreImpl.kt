@@ -6,9 +6,9 @@ import it.facile.records.agent.library.android.entity.Result
 import javax.inject.Inject
 
 /**
- * Placeholder in case of needs
+ //TODO Add Room as a dependency
  * */
-class LocalDataStore @Inject constructor() : DataStore{
+class LocalDataStoreImpl @Inject constructor(private val database: LocalDatabase) : DataStore{
     override suspend fun gerRecordDetailBy(id: Int): Result<List<RecordDetail?>> {
         return super.gerRecordDetailBy(id)
     }

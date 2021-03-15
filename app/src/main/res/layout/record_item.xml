@@ -19,7 +19,7 @@
         android:layout_height="match_parent"
         >
         <TextView
-            android:id="@+id/beer_name"
+            android:id="@+id/record_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -39,11 +39,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/beer_name"
+            app:layout_constraintBottom_toBottomOf="@+id/record_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/beer_name"
-            app:layout_constraintTop_toTopOf="@+id/beer_name"
+            app:layout_constraintStart_toEndOf="@+id/record_name"
+            app:layout_constraintTop_toTopOf="@+id/record_name"
             app:srcCompat="@drawable/ic_baseline_check_24"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>

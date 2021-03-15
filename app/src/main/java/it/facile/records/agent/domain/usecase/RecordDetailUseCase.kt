@@ -1,6 +1,5 @@
 package it.facile.records.agent.domain.usecase
 
-import it.facile.records.agent.domain.entity.local.FromBeerDetailToDetailUI
 import it.facile.records.agent.domain.entity.local.RecordDetailUI
 import it.facile.records.agent.domain.repository.Repository
 import it.facile.records.agent.library.android.entity.Result
@@ -17,7 +16,7 @@ class RecordDetailUseCase @Inject constructor(private val repository: Repository
                     val beerDetailForUI = mutableListOf<RecordDetailUI>()
 
                     (detailsForBeer as Result.Success).data.forEach { beerDetail ->
-                        beerDetailForUI.add(FromBeerDetailToDetailUI().mapFrom(beerDetail!!))
+//                        beerDetailForUI.add(FromBeerDetailToDetailUI().mapFrom(beerDetail!!))
                     }
                     Result.Success(beerDetailForUI)
 

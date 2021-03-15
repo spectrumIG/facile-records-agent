@@ -7,8 +7,8 @@ import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
+import it.facile.records.agent.domain.entity.local.Record
 import it.facile.records.agent.domain.entity.local.RecordDetail
-import it.facile.records.agent.domain.entity.local.SimpleBeer
 import it.facile.records.agent.domain.repository.Repository
 import it.facile.records.agent.library.android.entity.Result
 import it.facile.records.agent.util.MainCoroutineRule
@@ -30,7 +30,7 @@ class RecordsListUsecaseTest {
     @get:Rule
     val instantExecutorRule = InstantTaskExecutorRule()
 
-    private val mockSuccesResultList = listOf<SimpleBeer>(
+    private val mockSuccesResultList = listOf<Record>(
         mockk(relaxed = true) {
             every { id } returns 1
             every { name } returns "Punk IPA"
@@ -57,7 +57,7 @@ class RecordsListUsecaseTest {
         every { tagline } returns "Beatiful long tagline"
     })
 
-    private val mockErrorResult: Result<List<SimpleBeer>> = Result.Error(Exception("error"))
+    private val mockErrorResult: Result<List<Record>> = Result.Error(Exception("error"))
 
     private lateinit var useCase: RecordsListUsecase
 
