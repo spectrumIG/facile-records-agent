@@ -25,7 +25,7 @@
         android:label="Beer Detail"
         tools:layout="@layout/record_detail_fragment" >
         <argument
-            android:name="beerId"
+            android:name="recordId"
             app:argType="integer" />
     </fragment>
 </navigation>

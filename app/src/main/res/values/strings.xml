@@ -2,9 +2,10 @@
     <string name="app_name">Records Agents</string>
     <string name="title">Records List</string>
 
-    <string name="alert_error_message">Sorry, there were some problems with the beer. Please,come back later.</string>
+    <string name="alert_error_message">Sorry, there were some problems. Please,come back later.</string>
     <string name="error_alert_title">Ops!</string>
     <string name="empty_records_list_label">No records found</string>
     <string name="main_list_error_msg">Errors while retrieving records, please try again later</string>
+    <string name="permission_alert_text_label">Sorry, this app needs read file permission to be executed. Please, go to Settings and grant them</string>
 
 </resources>

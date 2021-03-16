@@ -42,7 +42,6 @@ android {
     }
     buildFeatures {
         viewBinding = true
-        dataBinding = true
     }
 
     lintOptions {
@@ -81,6 +80,7 @@ dependencies {
     implementation(NetLibs.SERIALIZATION_ADAPTER)
     implementation(NetLibs.KOTLIN_SERIALIZATION)
     implementation(NetLibs.HTTP_MOCKER_LIB)
+    implementation(NetLibs.HTTP_MOCKER_ADAPTER)
 
 
     implementation(JetPackKTX.LIVEDATA)

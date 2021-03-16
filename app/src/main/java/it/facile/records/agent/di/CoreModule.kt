@@ -5,6 +5,10 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import fr.speekha.httpmocker.Mode
+import fr.speekha.httpmocker.model.ResponseDescriptor
+import fr.speekha.httpmocker.okhttp.MockResponseInterceptor
+import fr.speekha.httpmocker.okhttp.builder.mockInterceptor
 import it.facile.records.agent.BuildConfig
 import it.facile.records.agent.domain.repository.network.RestApi
 import kotlinx.serialization.ExperimentalSerializationApi
@@ -73,16 +77,49 @@ object CoreModule {
 
     @Singleton
     @Provides
-    fun provideInterceptors(): ArrayList<Interceptor> {
+    fun provideInterceptors(loggingInterceptor: HttpLoggingInterceptor,mockResponseInterceptor: MockResponseInterceptor): ArrayList<Interceptor> {
         val interceptors = arrayListOf<Interceptor>()
-        val loggingInterceptor = HttpLoggingInterceptor().apply {
-            level = if (BuildConfig.DEBUG) {
+        interceptors.add(loggingInterceptor)
+        interceptors.add(mockResponseInterceptor)
+        return interceptors
+    }
+
+    @Singleton
+    @Provides
+    fun provideLogginInterceptor(): HttpLoggingInterceptor {
+        return HttpLoggingInterceptor().apply {
+            level = if(BuildConfig.DEBUG) {
                 HttpLoggingInterceptor.Level.BODY
             } else {
                 HttpLoggingInterceptor.Level.NONE
             }
         }
-        interceptors.add(loggingInterceptor)
-        return interceptors
     }
+
+    @Singleton
+    @Provides
+    fun provideHttpMockeryInterceptor(): MockResponseInterceptor {
+        return mockInterceptor {
+            useDynamicMocks{
+                ResponseDescriptor(delay = 1000L, code = 200, "application/json", body ="""
+                    {
+                       "records":[
+                          {
+                             "id":10,
+                             "record_name":"Passaporto"
+                          },
+                          {
+                             "id":11,
+                             "record_name":"Contratto"
+                          }
+                       ]
+                    }
+                """.trimIndent())
+//                ResponseDescriptor(500L,code = 404) //TODO: test this
+            }
+            setMode(Mode.ENABLED)
+        }
+    }
+
+
 }

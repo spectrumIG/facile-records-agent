@@ -114,6 +114,7 @@ object NetLibs {
     const val SERIALIZATION_ADAPTER = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:${Versions.RETROFIT_SERIAL_ADAPTER}"
 
     const val HTTP_MOCKER_LIB = "fr.speekha.httpmocker:mocker-okhttp:${Versions.HTTP_MOCKER}"
+    const val HTTP_MOCKER_ADAPTER = "fr.speekha.httpmocker:kotlinx-adapter:${Versions.HTTP_MOCKER}"
 
 }
 

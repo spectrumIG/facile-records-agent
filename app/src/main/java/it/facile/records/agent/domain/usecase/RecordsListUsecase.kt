@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class RecordsListUsecase @Inject constructor(private val repository: Repository) : UseCase {
 
-    suspend fun retrieveBeersPaginated(): Result<List<RecordForUi>> {
+    suspend fun retrieveRecords(): Result<List<RecordForUi>> {
         val simpleBeers = repository.getAllRecords()
         return when {
             simpleBeers.succeded -> {

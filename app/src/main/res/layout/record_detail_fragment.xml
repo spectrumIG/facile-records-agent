@@ -15,7 +15,7 @@
         >
 
         <TextView
-            android:id="@+id/beer_det_name"
+            android:id="@+id/record_det_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:singleLine="true"
@@ -27,35 +27,40 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Nome della birra"
+            tools:text="Record name"
             />
         <TextView
-            android:id="@+id/beer_det_tagline"
+            android:id="@+id/record_det_subtitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.recordDetail.tagline}"
 
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.MyTheme.Headline6"
             android:textColor="@color/primaryTextColor"
-            app:layout_constraintEnd_toEndOf="@+id/beer_det_name"
-            app:layout_constraintStart_toStartOf="@+id/beer_det_name"
-            app:layout_constraintTop_toBottomOf="@+id/beer_det_name"
-            tools:text="Tag line molto bellina "
+            app:layout_constraintEnd_toEndOf="@+id/record_det_name"
+            app:layout_constraintStart_toStartOf="@+id/record_det_name"
+            app:layout_constraintTop_toBottomOf="@+id/record_det_name"
+            tools:text="Subtitle"
             />
-        <TextView
-            android:id="@+id/beer_det_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/cormorant_garamond"
-            android:textAppearance="@style/TextAppearance.MyTheme.Subtitle2"
-            android:textColor="@color/primaryTextColor"
-            android:textStyle="italic"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/beer_det_tagline"
-            tools:text="Birrificata:04/2014"
-            />
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/list_main_refresh_container"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
 
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/record_det_subtitle"
+            >
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/record_det_subtitle"
+                />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
