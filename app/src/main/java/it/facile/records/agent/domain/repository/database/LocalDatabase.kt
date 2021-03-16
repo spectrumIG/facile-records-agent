@@ -4,7 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import it.facile.records.agent.domain.entity.local.Converters
 import it.facile.records.agent.domain.entity.local.Record
+import it.facile.records.agent.domain.entity.local.RecordFile
 import it.facile.records.agent.domain.repository.database.dao.RecordsDao
 
 /**
@@ -12,7 +15,8 @@ import it.facile.records.agent.domain.repository.database.dao.RecordsDao
  */
 const val DATABASE_NAME = "app-db"
 
-@Database(entities = [Record::class], version = 1, exportSchema = false)
+@Database(entities = [Record::class,RecordFile::class], version = 1, exportSchema = false)
+@TypeConverters(Converters::class)
 abstract class LocalDatabase : RoomDatabase() {
     abstract fun recordDao(): RecordsDao
 //    abstract fun plantDao(): PlantDao

@@ -39,7 +39,7 @@ class RecordsRecyclerAdapter :
         ) {
             with(itemView) {
                 binding.recordName.text = item.recordName
-                // TODO: 15/03/21 Adds check in case of files
+
                 binding.hasFileCheckImg.visibility = when {
                     item.hasFile -> {
                         View.VISIBLE

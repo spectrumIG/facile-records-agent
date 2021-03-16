@@ -8,7 +8,7 @@ import javax.inject.Inject
 class RecordsListUsecase @Inject constructor(private val repository: Repository) : UseCase {
 
     suspend fun retrieveRecords(): Result<List<RecordForUi>> {
-        return when (val records = repository.getAllRecords()) {
+        return when (val records = repository.getAllRecordsFromServer()) {
             is Result.Success -> {
                 val returnedList = mutableListOf<RecordForUi>()
 

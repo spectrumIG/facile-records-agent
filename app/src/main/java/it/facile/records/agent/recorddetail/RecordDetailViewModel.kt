@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import it.facile.records.agent.di.RecordDetail
-import it.facile.records.agent.domain.entity.local.RecordDetailUI
+import it.facile.records.agent.domain.entity.local.FileOfRecordUI
 import it.facile.records.agent.domain.usecase.RecordDetailUseCase
 import it.facile.records.agent.domain.usecase.UseCase
 import it.facile.records.agent.library.android.entity.Result
@@ -17,9 +17,9 @@ import javax.inject.Inject
 class RecordDetailViewModel @Inject constructor(
     @RecordDetail private val usecase: UseCase,
 ) : ViewModel() {
-    private val _beerDetail = MutableLiveData<RecordDetailUI>()
-    val recordDetail: LiveData<RecordDetailUI>
-        get() = _beerDetail
+    private val _filesForRecord = MutableLiveData<List<FileOfRecordUI?>>()
+    val recordDetail: MutableLiveData<List<FileOfRecordUI?>>
+        get() = _filesForRecord
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean>
@@ -30,11 +30,11 @@ class RecordDetailViewModel @Inject constructor(
         get() = _showError
 
     fun fetchRecordDetail(id: Int) {
-        val beerDetailUseCase = usecase as RecordDetailUseCase
+        val useCase = usecase as RecordDetailUseCase
 
         viewModelScope.launch {
-            when (val retrieveBeerDetailBy = beerDetailUseCase.retrieveBeerDetailBy(id)) {
-                is Result.Success -> _beerDetail.postValue(retrieveBeerDetailBy.data[0])
+            when (val retrieveBeerDetailBy = useCase.retrievefilesForRecordBy(id)) {
+                is Result.Success -> _filesForRecord.postValue(retrieveBeerDetailBy.data)
                 is Result.Loading -> _isLoading.postValue(true)
                 is Result.Error -> _showError.postValue(true)
             }

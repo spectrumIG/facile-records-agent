@@ -33,8 +33,8 @@ object RepositoryModule {
     @Provides
     @Singleton
     @LocalDataStore
-    fun providesLocalDataStore(localDatabase: LocalDatabase): DataStore {
-        return LocalDataStoreImpl(localDatabase)
+    fun providesLocalDataStore(recordsDao: RecordsDao): DataStore {
+        return LocalDataStoreImpl(recordsDao)
     }
 
     @Provides

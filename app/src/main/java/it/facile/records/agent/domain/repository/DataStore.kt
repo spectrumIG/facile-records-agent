@@ -1,14 +1,13 @@
 package it.facile.records.agent.domain.repository
 
-import it.facile.records.agent.domain.entity.local.RecordDetail
-import it.facile.records.agent.library.android.entity.Result
+import it.facile.records.agent.domain.entity.local.FileOfRecord
 
 /**
  * Simple interface for Datastores. Local or Remote.
  *  *
  * */
 interface DataStore {
-    suspend fun gerRecordDetailBy(id: Int): Result<List<RecordDetail?>> {
+    suspend fun getFilesForRecordsBy(id: Int): List<FileOfRecord?> {
         TODO("Not yet implemented")
     }
 }

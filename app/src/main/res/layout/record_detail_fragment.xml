@@ -1,66 +1,74 @@
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/detail_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
+    android:padding="8dp"
+    tools:context=".recorddetail.RecordDetailFragment"
     >
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/detail_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="8dp"
-        tools:context=".recorddetail.BeerDetailFragment"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_file_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:rippleColor="@color/secondaryTextColor"
+        app:srcCompat="@drawable/ic_baseline_add_24"
+        app:useCompatPadding="true"
+        />
+    <TextView
+        android:id="@+id/record_det_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:text="@{viewModel.recordDetail.name}"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.MyTheme.Headline4"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Record name"
+        />
+    <TextView
+        android:id="@+id/record_det_subtitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.MyTheme.Headline6"
+        android:textColor="@color/primaryTextColor"
+        app:layout_constraintEnd_toEndOf="@+id/record_det_name"
+        app:layout_constraintStart_toStartOf="@+id/record_det_name"
+        app:layout_constraintTop_toBottomOf="@+id/record_det_name"
+        tools:text="Subtitle"
+        />
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/list_main_refresh_container"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/record_det_subtitle"
         >
-
-        <TextView
-            android:id="@+id/record_det_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:singleLine="true"
-            android:text="@{viewModel.recordDetail.name}"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.MyTheme.Headline4"
-            android:textColor="@color/primaryTextColor"
-            android:textSize="30sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Record name"
-            />
-        <TextView
-            android:id="@+id/record_det_subtitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.MyTheme.Headline6"
-            android:textColor="@color/primaryTextColor"
-            app:layout_constraintEnd_toEndOf="@+id/record_det_name"
-            app:layout_constraintStart_toStartOf="@+id/record_det_name"
-            app:layout_constraintTop_toBottomOf="@+id/record_det_name"
-            tools:text="Subtitle"
-            />
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/list_main_refresh_container"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/file_list_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/record_det_subtitle"
-            >
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/record_det_subtitle"
-                />
+            />
 
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

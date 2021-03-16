@@ -2,8 +2,8 @@ package it.facile.records.agent.domain.repository
 
 import it.facile.records.agent.di.LocalDataStore
 import it.facile.records.agent.di.RemoteDataStore
+import it.facile.records.agent.domain.entity.local.FileOfRecordBusiness
 import it.facile.records.agent.domain.entity.local.RecordBusinessData
-import it.facile.records.agent.domain.entity.local.RecordDetail
 import it.facile.records.agent.domain.repository.network.RemoteStore
 import it.facile.records.agent.library.android.entity.Result
 import javax.inject.Inject
@@ -11,9 +11,9 @@ import it.facile.records.agent.domain.repository.database.LocalDataStoreImpl as 
 
 interface Repository {
 
-    suspend fun getAllRecords(): Result<List<RecordBusinessData?>>
+    suspend fun getAllRecordsFromServer(): Result<List<RecordBusinessData?>>
 
-    suspend fun fetchRecordFileListBy(id: Int): Result<List<RecordDetail?>>
+    suspend fun fetchRecordFileListByRecord(id: Int): Result<List<FileOfRecordBusiness?>>
 
     suspend fun checkIfRecordHasFile(recordId:Int) : Boolean
 }
@@ -28,7 +28,7 @@ class RepositoryImpl @Inject constructor(
     @RemoteDataStore private val remoteDataStore: RemoteStore
 ) : Repository {
 
-    override suspend fun getAllRecords(): Result<List<RecordBusinessData?>> {
+    override suspend fun getAllRecordsFromServer(): Result<List<RecordBusinessData?>> {
         return when (val allrecords = remoteDataStore.getAllrecords()) {
             is Result.Success -> {
                 val recordsForBusiness = mutableListOf<RecordBusinessData>()
@@ -49,9 +49,11 @@ class RepositoryImpl @Inject constructor(
         return false
     }
 
-    override suspend fun fetchRecordFileListBy(id: Int): Result<List<RecordDetail?>> {
+    override suspend fun fetchRecordFileListByRecord(id: Int): Result<List<FileOfRecordBusiness?>> {
         return try {
-            localDataStore.gerRecordDetailBy(id)
+            Result.Success(localDataStore.getFilesForRecordsBy(id).map { fileForRecord ->
+                fileForRecord?.mapToBusiness()
+            })
         } catch (e: Exception) {
             Result.Error(e)
         }
