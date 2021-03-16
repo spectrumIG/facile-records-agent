@@ -8,7 +8,7 @@ import javax.inject.Inject
 class RecordDetailUseCase @Inject constructor(private val repository: Repository) : UseCase {
 
     suspend fun retrieveBeerDetailBy(id: Int): Result<List<RecordDetailUI>> {
-        val detailsForBeer = repository.fetchRecordDetailBy(id)
+        val detailsForBeer = repository.fetchRecordFileListBy(id)
 
         return when {
             detailsForBeer.succeded -> {

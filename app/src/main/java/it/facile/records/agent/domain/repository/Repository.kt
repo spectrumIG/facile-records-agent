@@ -2,7 +2,6 @@ package it.facile.records.agent.domain.repository
 
 import it.facile.records.agent.di.LocalDataStore
 import it.facile.records.agent.di.RemoteDataStore
-import it.facile.records.agent.domain.entity.local.FromDtoToBusinessMapper
 import it.facile.records.agent.domain.entity.local.RecordBusinessData
 import it.facile.records.agent.domain.entity.local.RecordDetail
 import it.facile.records.agent.domain.repository.network.RemoteStore
@@ -14,14 +13,13 @@ interface Repository {
 
     suspend fun getAllRecords(): Result<List<RecordBusinessData?>>
 
-    suspend fun fetchRecordDetailBy(id: Int): Result<List<RecordDetail?>>
+    suspend fun fetchRecordFileListBy(id: Int): Result<List<RecordDetail?>>
+
+    suspend fun checkIfRecordHasFile(recordId:Int) : Boolean
 }
 
 /**
  * Main entry point for Single-source-of-truth pattern.
- * Should contain Local data store but for sake of simplicity and time
- * i'm gonna use just the remote Data Store.
- *
  * */
 
 @ExperimentalStdlibApi
@@ -35,7 +33,9 @@ class RepositoryImpl @Inject constructor(
             is Result.Success -> {
                 val recordsForBusiness = mutableListOf<RecordBusinessData>()
                 allrecords.data.forEach { recordDto ->
-                    recordsForBusiness.add(FromDtoToBusinessMapper().mapFrom(recordDto))
+                    recordsForBusiness.add(
+                        recordDto.maptoRecord().mapToBusiness()
+                    )
                 }
                 Result.Success(recordsForBusiness)
             }
@@ -44,7 +44,12 @@ class RepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun fetchRecordDetailBy(id: Int): Result<List<RecordDetail?>> {
+    // TODO: 16/03/21 This needs to be implemented checking the DB
+    override suspend fun checkIfRecordHasFile(recordId: Int): Boolean {
+        return false
+    }
+
+    override suspend fun fetchRecordFileListBy(id: Int): Result<List<RecordDetail?>> {
         return try {
             localDataStore.gerRecordDetailBy(id)
         } catch (e: Exception) {

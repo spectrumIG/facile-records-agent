@@ -25,7 +25,9 @@ class RecordsListViewModel @Inject constructor(
     val showProgress: LiveData<Boolean>
         get() = _showProgress
 
-
+    init {
+        getAllRecords()
+    }
 
     fun getAllRecords() {
         val recordsListUsecase = usecase as RecordsListUsecase
@@ -33,7 +35,7 @@ class RecordsListViewModel @Inject constructor(
         viewModelScope.launch {
             _showProgress.postValue(true)
 
-            _beers.postValue(recordsListUsecase.retrieveBeersPaginated())
+            _beers.postValue(recordsListUsecase.retrieveRecords())
 
             _showProgress.postValue(false)
         }

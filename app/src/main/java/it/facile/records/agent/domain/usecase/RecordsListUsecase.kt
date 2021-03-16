@@ -8,23 +8,18 @@ import javax.inject.Inject
 class RecordsListUsecase @Inject constructor(private val repository: Repository) : UseCase {
 
     suspend fun retrieveRecords(): Result<List<RecordForUi>> {
-        val simpleBeers = repository.getAllRecords()
-        return when {
-            simpleBeers.succeded -> {
-                return try {
-                    val returnedList = mutableListOf<RecordForUi>()
+        return when (val records = repository.getAllRecords()) {
+            is Result.Success -> {
+                val returnedList = mutableListOf<RecordForUi>()
 
-                    (simpleBeers as Result.Success).data.forEach {
-//                        returnedList.add(FromSimpleToUiBeerMapper().mapFrom(it!!))
-                    }
-
-                    Result.Success(returnedList)
-                } catch (e: Exception) {
-                    Result.Error(e)
+                records.data.forEach { recordBusinessData ->
+                    recordBusinessData?.mapTo()?.let { returnedList.add(it) }
                 }
+
+                Result.Success(returnedList)
             }
             else -> {
-                Result.Error((simpleBeers as Result.Error).exception)
+                Result.Error((records as Result.Error).exception)
             }
         }
     }

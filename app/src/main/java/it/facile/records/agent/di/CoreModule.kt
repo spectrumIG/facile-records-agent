@@ -30,8 +30,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object CoreModule {
-    //TODO: Attach HTTPMOCK https://github.com/speekha/httpmocker
-    const val BASE_URL = "https://www.facile.test.it/"
+    private const val BASE_URL = "https://www.facile.test.it/"
 
     @Singleton
     @Provides
@@ -100,8 +99,9 @@ object CoreModule {
     @Provides
     fun provideHttpMockeryInterceptor(): MockResponseInterceptor {
         return mockInterceptor {
-            useDynamicMocks{
-                ResponseDescriptor(delay = 1000L, code = 200, "application/json", body ="""
+            useDynamicMocks {
+                if((0..100).random().rem(2) == 0) {
+                    ResponseDescriptor(delay = 1000L, code = 200, "application/json", body = """
                     {
                        "records":[
                           {
@@ -115,11 +115,13 @@ object CoreModule {
                        ]
                     }
                 """.trimIndent())
-//                ResponseDescriptor(500L,code = 404) //TODO: test this
+
+                } else {
+                    ResponseDescriptor(500L, code = 404,)
+                }
             }
             setMode(Mode.ENABLED)
         }
+
     }
-
-
 }

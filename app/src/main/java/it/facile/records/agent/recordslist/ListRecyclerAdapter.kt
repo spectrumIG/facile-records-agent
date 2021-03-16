@@ -1,6 +1,7 @@
 package it.facile.records.agent.recordslist
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
@@ -9,8 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import it.facile.records.agent.databinding.RecordItemBinding
 import it.facile.records.agent.domain.entity.local.RecordForUi
 
-class BeersLinearRecyclerAdapter :
-    ListAdapter<RecordForUi, BeersLinearRecyclerAdapter.ViewHolder>(BeersDiffCallback()) {
+class RecordsRecyclerAdapter :
+    ListAdapter<RecordForUi, RecordsRecyclerAdapter.ViewHolder>(BeersDiffCallback()) {
 
     private var data: List<RecordForUi> = ArrayList()
 
@@ -39,6 +40,14 @@ class BeersLinearRecyclerAdapter :
             with(itemView) {
                 binding.recordName.text = item.recordName
                 // TODO: 15/03/21 Adds check in case of files
+                binding.hasFileCheckImg.visibility = when {
+                    item.hasFile -> {
+                        View.VISIBLE
+                    }
+                    else -> {
+                        View.GONE
+                    }
+                }
                 binding.beerItemContainer.setOnClickListener {
                     val toDetail = RecordsListFragmentDirections.actionBeersListFragmentToBeerDetailFragment(item.id)
                     findNavController().navigate(toDetail)

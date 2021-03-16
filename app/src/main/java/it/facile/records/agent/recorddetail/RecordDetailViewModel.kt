@@ -29,7 +29,7 @@ class RecordDetailViewModel @Inject constructor(
     val showError: LiveData<Boolean>
         get() = _showError
 
-    fun fetchBeerDetail(id: Int) {
+    fun fetchRecordDetail(id: Int) {
         val beerDetailUseCase = usecase as RecordDetailUseCase
 
         viewModelScope.launch {

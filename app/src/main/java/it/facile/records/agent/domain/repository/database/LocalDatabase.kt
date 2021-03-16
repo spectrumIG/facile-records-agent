@@ -19,7 +19,7 @@ abstract class LocalDatabase : RoomDatabase() {
 
     companion object {
 
-        // Use a singleton instaciation as suggested by Google.
+        // Use a singleton as suggested by Google.
         @Volatile
         private var instance: LocalDatabase? = null
 
