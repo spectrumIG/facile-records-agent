@@ -7,5 +7,6 @@
     <string name="empty_records_list_label">No records found</string>
     <string name="main_list_error_msg">Errors while retrieving records, please try again later</string>
     <string name="permission_alert_text_label">Sorry, this app needs read file permission to be executed. Please, go to Settings and grant them</string>
+    <string name="file_list_detail_title">List of file for Record</string>
 
 </resources>

@@ -2,24 +2,27 @@ package it.facile.records.agent.domain.usecase
 
 import it.facile.records.agent.domain.entity.local.FileOfRecordUI
 import it.facile.records.agent.domain.repository.Repository
-import it.facile.records.agent.library.android.entity.Result
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class RecordDetailUseCase @Inject constructor(private val repository: Repository) : UseCase {
 
-    suspend fun retrievefilesForRecordBy(id: Int): Result<List<FileOfRecordUI?>> {
+    suspend fun retrievefilesForRecordBy(id: Int): Flow<List<FileOfRecordUI?>> {
 
-        return when (val result = repository.fetchRecordFileListByRecord(id)) {
-            is Result.Success -> {
-                Result.Success(result.data.map { fileOfRecordBusiness ->
-                    fileOfRecordBusiness?.mapToUI()
-                })
-            }
-            else -> {
-                Result.Error((result as Result.Error).exception)
-            }
+        return repository.fetchRecordFileListByRecord(id).map { value ->
+            value.map { fileOfRecordBusiness ->
+                fileOfRecordBusiness?.let {
+                    FileOfRecordUI(
+                        fileSize = it.fileSize,
+                        addingDate = it.addingDate,
+                        filename = it.filename)
+                }
 
+            }
         }
+
+
     }
 }
 

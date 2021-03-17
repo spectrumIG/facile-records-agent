@@ -12,7 +12,7 @@ data class Record(
     val recordName: String?,
 )
 
-@Entity(tableName = "record_table")
+@Entity(tableName = "file_table")
 data class RecordFile(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "file_id")
@@ -22,7 +22,7 @@ data class RecordFile(
     @ColumnInfo(name = "file_name")
     val filename: String,
     @ColumnInfo(name = "file_size")
-    val fileSize: Int,
+    val fileSize: Long,
     @ColumnInfo(name = "file_add_date")
     val addingDate: Calendar = Calendar.getInstance()
 )

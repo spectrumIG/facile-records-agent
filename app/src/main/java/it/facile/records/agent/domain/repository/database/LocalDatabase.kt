@@ -15,11 +15,10 @@ import it.facile.records.agent.domain.repository.database.dao.RecordsDao
  */
 const val DATABASE_NAME = "app-db"
 
-@Database(entities = [Record::class,RecordFile::class], version = 1, exportSchema = false)
+@Database(entities = [Record::class,RecordFile::class], version = 2, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class LocalDatabase : RoomDatabase() {
     abstract fun recordDao(): RecordsDao
-//    abstract fun plantDao(): PlantDao
 
     companion object {
 
@@ -34,7 +33,7 @@ abstract class LocalDatabase : RoomDatabase() {
         }
 
         private fun buildDatabase(context: Context): LocalDatabase {
-            return Room.databaseBuilder(context, LocalDatabase::class.java, DATABASE_NAME)
+            return Room.databaseBuilder(context, LocalDatabase::class.java, DATABASE_NAME).fallbackToDestructiveMigration()
                 .build()
         }
     }

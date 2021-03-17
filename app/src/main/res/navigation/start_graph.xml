@@ -22,10 +22,14 @@
     <fragment
         android:id="@+id/beerDetailFragment"
         android:name="it.facile.records.agent.recorddetail.RecordDetailFragment"
-        android:label="Beer Detail"
+        android:label="@string/file_list_detail_title"
         tools:layout="@layout/record_detail_fragment" >
         <argument
             android:name="recordId"
             app:argType="integer" />
+        <argument
+            android:name="recordName"
+            app:argType="string" />
+
     </fragment>
 </navigation>

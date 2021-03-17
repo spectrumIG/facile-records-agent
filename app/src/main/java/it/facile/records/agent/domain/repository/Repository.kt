@@ -4,8 +4,11 @@ import it.facile.records.agent.di.LocalDataStore
 import it.facile.records.agent.di.RemoteDataStore
 import it.facile.records.agent.domain.entity.local.FileOfRecordBusiness
 import it.facile.records.agent.domain.entity.local.RecordBusinessData
+import it.facile.records.agent.domain.entity.local.RecordFile
 import it.facile.records.agent.domain.repository.network.RemoteStore
 import it.facile.records.agent.library.android.entity.Result
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import it.facile.records.agent.domain.repository.database.LocalDataStoreImpl as LocalData
 
@@ -13,9 +16,11 @@ interface Repository {
 
     suspend fun getAllRecordsFromServer(): Result<List<RecordBusinessData?>>
 
-    suspend fun fetchRecordFileListByRecord(id: Int): Result<List<FileOfRecordBusiness?>>
+    suspend fun fetchRecordFileListByRecord(id: Int): Flow<List<FileOfRecordBusiness?>>
 
-    suspend fun checkIfRecordHasFile(recordId:Int) : Boolean
+    suspend fun checkIfRecordHasFile(recordId: Int): Boolean
+
+    suspend fun insertFileForRecord(fileforRecord: RecordFile)
 }
 
 /**
@@ -49,14 +54,22 @@ class RepositoryImpl @Inject constructor(
         return false
     }
 
-    override suspend fun fetchRecordFileListByRecord(id: Int): Result<List<FileOfRecordBusiness?>> {
-        return try {
-            Result.Success(localDataStore.getFilesForRecordsBy(id).map { fileForRecord ->
-                fileForRecord?.mapToBusiness()
-            })
-        } catch (e: Exception) {
-            Result.Error(e)
+    override suspend fun insertFileForRecord(fileforRecord: RecordFile) {
+        localDataStore.insertFileForRecord(fileforRecord)
+    }
+
+    override suspend fun fetchRecordFileListByRecord(id: Int): Flow<List<FileOfRecordBusiness?>> {
+        return localDataStore.getFilesForRecordsBy(id).map { value ->
+            value.map { recordFile ->
+                recordFile?.let {
+                    FileOfRecordBusiness(
+                        filename = it.filename,
+                        fileSize = it.fileSize,
+                        addingDate = it.addingDate)
+                }
+            }
         }
+
 
     }
 }

@@ -4,7 +4,7 @@ import java.util.*
 
 data class FileOfRecord(
     val filename: String,
-    val fileSize: Int,
+    val fileSize: Long,
     val addingDate: Calendar,
 ) : LocalData {
 
@@ -15,7 +15,7 @@ data class FileOfRecord(
 
 data class FileOfRecordBusiness(
     val filename: String,
-    val fileSize: Int,
+    val fileSize: Long,
     val addingDate: Calendar,
 ) {
     fun mapToUI(): FileOfRecordUI {
@@ -25,6 +25,6 @@ data class FileOfRecordBusiness(
 
 data class FileOfRecordUI(
     val filename: String,
-    val fileSize: Int,
+    val fileSize: Long,
     val addingDate: Calendar,
 )

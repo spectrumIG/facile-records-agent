@@ -49,8 +49,9 @@ class RecordsRecyclerAdapter :
                     }
                 }
                 binding.beerItemContainer.setOnClickListener {
-                    val toDetail = RecordsListFragmentDirections.actionBeersListFragmentToBeerDetailFragment(item.id)
-                    findNavController().navigate(toDetail)
+                    item.recordName?.let { name ->
+                        RecordsListFragmentDirections.actionBeersListFragmentToBeerDetailFragment(item.id, name)
+                    }.let { navDirections -> navDirections?.let { directions -> findNavController().navigate(directions) } }
                 }
             }
         }

@@ -53,11 +53,6 @@ object RepositoryModule {
     fun provideRecordsDao(appDatabase: LocalDatabase): RecordsDao {
         return appDatabase.recordDao()
     }
-
-//    @Provides
-//    fun provideGardenPlantingDao(appDatabase: AppDatabase): GardenPlantingDao {
-//        return appDatabase.gardenPlantingDao()
-//    }
 }
 
 @Qualifier
