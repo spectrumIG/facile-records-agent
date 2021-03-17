@@ -1,7 +1,6 @@
 package it.facile.records.agent.recordslist
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
@@ -40,15 +39,15 @@ class RecordsRecyclerAdapter :
             with(itemView) {
                 binding.recordName.text = item.recordName
 
-                binding.hasFileCheckImg.visibility = when {
-                    item.hasFile -> {
-                        View.VISIBLE
-                    }
-                    else -> {
-                        View.GONE
-                    }
-                }
-                binding.beerItemContainer.setOnClickListener {
+//                binding.hasFileCheckImg.visibility = when {
+//                    item.hasFile -> {
+//                        View.VISIBLE
+//                    }
+//                    else -> {
+//                        View.GONE
+//                    }
+//                }
+                binding.recordItemContainer.setOnClickListener {
                     item.recordName?.let { name ->
                         RecordsListFragmentDirections.actionBeersListFragmentToBeerDetailFragment(item.id, name)
                     }.let { navDirections -> navDirections?.let { directions -> findNavController().navigate(directions) } }

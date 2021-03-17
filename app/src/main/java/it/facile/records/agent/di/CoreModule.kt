@@ -23,9 +23,7 @@ import javax.inject.Singleton
 
 /**
  * This is the main Hilt modules. I'll keep the Kotlin serializations, Retrofit
- * and okHttp libs even if the remote repo is mocked
- *
- *
+ * and okHttp libs even if the remote repo is mocked for completeness
  * */
 @ExperimentalSerializationApi
 @Module
@@ -104,6 +102,7 @@ object CoreModule {
     fun provideHttpMockeryInterceptor(): MockResponseInterceptor {
         return mockInterceptor {
             useDynamicMocks {
+                // response is choosen more or less randomely.
                 if((0..100).random().rem(2) == 0) {
                     ResponseDescriptor(delay = 1000L, code = 200, "application/json", body = """
                     {

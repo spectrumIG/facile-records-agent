@@ -2,9 +2,11 @@ package it.facile.records.agent.recorddetail
 
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
+import it.facile.records.agent.di.DeleteFile
 import it.facile.records.agent.di.InsertFile
 import it.facile.records.agent.di.RecordDetail
 import it.facile.records.agent.domain.entity.local.FileOfRecordUI
+import it.facile.records.agent.domain.usecase.DeleteFileUseCase
 import it.facile.records.agent.domain.usecase.InsertFileUseCase
 import it.facile.records.agent.domain.usecase.RecordDetailUseCase
 import it.facile.records.agent.domain.usecase.UseCase
@@ -18,7 +20,8 @@ class RecordDetailViewModel @Inject constructor(
     private val defaulDispatcher: CoroutineDispatcher,
     @RecordDetail private val getRecordsUsecase: UseCase,
     @InsertFile private val insertUsecase: UseCase,
-) : ViewModel() {
+    @DeleteFile private val deleteFileUseCase: UseCase
+    ) : ViewModel() {
 
     private var job: Job? = null
 
@@ -27,19 +30,26 @@ class RecordDetailViewModel @Inject constructor(
     fun fetchRecordDetail(id: Int) {
         val useCase = getRecordsUsecase as RecordDetailUseCase
 
-        fileForRecord = liveData {
+        fileForRecord = liveData(defaulDispatcher) {
             emitSource(useCase.retrievefilesForRecordBy(id).asLiveData())
         }
     }
 
     fun attachFileToRecord(recordId: Int, filename: String, filesize: Long) {
         val useCase = insertUsecase as InsertFileUseCase
-        job = viewModelScope.launch() {
+        job = viewModelScope.launch(defaulDispatcher) {
             useCase.insertFileForRecord(
                 recordId = recordId,
                 filename = filename,
                 filesize = filesize
             )
+        }
+    }
+
+    fun deleteAttachedFileById(recordName: String, fileId: Int) {
+        val useCase = deleteFileUseCase as DeleteFileUseCase
+        viewModelScope.launch(defaulDispatcher) {
+            useCase.deleteFile(recordName, fileId)
         }
     }
 

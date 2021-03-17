@@ -27,7 +27,7 @@ interface RecordsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertFileForRecord(recordFile: RecordFile)
 
-    @Delete
-    suspend fun deleteFileForRecord(recordFile: RecordFile)
+    @Query("DELETE FROM  file_table WHERE file_name= :filename AND record_id= :recordId ")
+    suspend fun deleteFileForRecord(filename:String, recordId :Int)
 
 }

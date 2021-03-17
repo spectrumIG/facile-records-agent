@@ -12,9 +12,12 @@ data class RecordDataModel(val id: Int, val recordName: String?) : LocalData {
  * */
 data class RecordBusinessData(val id: Int, val recordName: String?) : LocalData {
 
-    fun mapTo(): RecordForUi {
-        return RecordForUi(id = id, recordName = recordName)
-    }
+//    fun mapTo(hasFile: Boolean): RecordForUi {
+//        return RecordForUi(id = id, recordName = recordName,hasFile = hasFile)
+fun mapTo(): RecordForUi {
+    return RecordForUi(id = id, recordName = recordName)
+
+}
 }
 
 /**

@@ -49,7 +49,6 @@ class RecordsListFragment : BaseFragment(R.layout.records_list_fragment) {
             adapter = recordsListAdapter
         }
 
-
         swipeRefreshLayout.setOnRefreshListener {
             recordsListAdapter.clearData()
             viewModel.getAllRecords()
@@ -62,7 +61,7 @@ class RecordsListFragment : BaseFragment(R.layout.records_list_fragment) {
             swipeRefreshLayout.isRefreshing = show
         }
 
-        viewModel.beers.observe(viewLifecycleOwner) { resource ->
+        viewModel.records.observe(viewLifecycleOwner) { resource ->
             when (resource) {
                 is Result.Success -> {
                     enableList()

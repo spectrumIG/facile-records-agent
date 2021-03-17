@@ -50,7 +50,9 @@ class RecordDetailFragment : BaseFragment(R.layout.record_detail_fragment) {
         super.onViewCreated(view, savedInstanceState)
         fragmentBindings = RecordDetailFragmentBinding.bind(view)
 
-        val listAdapter = FileForRecordListAdapter()
+        val listAdapter = FileForRecordListAdapter{ recordName: String ->
+            detailViewModel.deleteAttachedFileById(recordName,args.recordId)
+        }
 
         listOfFile = binding.fileListRecycler
         listOfFile.apply {
@@ -59,17 +61,12 @@ class RecordDetailFragment : BaseFragment(R.layout.record_detail_fragment) {
         }
 
         pullToRefresh.isRefreshing = true
-
+        pullToRefresh.setOnRefreshListener { pullToRefresh.isRefreshing = false }  //I use the pull to refresh in this case just for UI
+                                                                                   // notification not for actually reloading anything
         titleText.text = args.recordName
 
         detailViewModel.fetchRecordDetail(args.recordId)
 
-
-        val addCallback = requireActivity().onBackPressedDispatcher.addCallback {
-            findNavController().navigate(R.id.beersListFragment)
-        }
-
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, addCallback)
         addFileButton.setOnClickListener {
             createIntent()
         }
@@ -79,30 +76,22 @@ class RecordDetailFragment : BaseFragment(R.layout.record_detail_fragment) {
             pullToRefresh.isRefreshing = false
         }
 
-        pullToRefresh.setOnRefreshListener {
-            detailViewModel.fetchRecordDetail(args.recordId)
+        manageBackNavigation()
+    }
+
+    private fun manageBackNavigation() {
+        val addCallback = requireActivity().onBackPressedDispatcher.addCallback {
+            findNavController().navigate(R.id.beersListFragment)
         }
 
-//        detailViewModel.showError.observe(viewLifecycleOwner) { show ->
-//            if(show) {
-////              AlertDialog.Builder(requireContext())
-////                  .setMessage(getString(R.string.alert_error_message))
-////                  .setTitle(getString(R.string.error_alert_title))
-////                  .setPositiveButton(android.R.string.ok) { dialog, _ ->
-////                      dialog.dismiss()
-////                      findNavController().navigate(R.id.beersListFragment)
-////                  }
-////                  .create().show()
-//            }
-//        }
-
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, addCallback)
     }
 
     private fun createIntent() {
         startActivityForResult(
             Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
                 addCategory(Intent.CATEGORY_OPENABLE)
-                type = "*/*" //Since I didn't get if there's some file type limitations I assumed every kind of file it's got to be considered correct
+                type = "*/*" //Since I didn't get if there's some file type limitations I assumed every kind of file has to be considered valid
                 flags = flags or Intent.FLAG_GRANT_READ_URI_PERMISSION
 
             },

@@ -2,7 +2,7 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/beer_item_container"
+    android:id="@+id/record_item_container"
     android:layout_width="match_parent"
     android:layout_height="100dp"
     android:layout_marginStart="8dp"
@@ -45,6 +45,7 @@
             app:layout_constraintStart_toEndOf="@+id/record_name"
             app:layout_constraintTop_toTopOf="@+id/record_name"
             app:srcCompat="@drawable/ic_baseline_check_24"
+            android:visibility="gone"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

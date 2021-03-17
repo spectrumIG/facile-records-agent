@@ -17,9 +17,9 @@ import javax.inject.Inject
 class RecordsListViewModel @Inject constructor(
    @RecordsList private val usecase: UseCase
 ) : ViewModel() {
-    private val _beers = MutableLiveData<Result<List<RecordForUi>>>()
-    val beers: LiveData<Result<List<RecordForUi>>>
-        get() = _beers
+    private val _records = MutableLiveData<Result<List<RecordForUi>>>()
+    val records: LiveData<Result<List<RecordForUi>>>
+        get() = _records
 
     private val _showProgress = MutableLiveData(false)
     val showProgress: LiveData<Boolean>
@@ -35,7 +35,7 @@ class RecordsListViewModel @Inject constructor(
         viewModelScope.launch {
             _showProgress.postValue(true)
 
-            _beers.postValue(recordsListUsecase.retrieveRecords())
+            _records.postValue(recordsListUsecase.retrieveRecords())
 
             _showProgress.postValue(false)
         }

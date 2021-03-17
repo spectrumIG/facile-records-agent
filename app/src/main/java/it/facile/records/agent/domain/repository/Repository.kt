@@ -21,6 +21,8 @@ interface Repository {
     suspend fun checkIfRecordHasFile(recordId: Int): Boolean
 
     suspend fun insertFileForRecord(fileforRecord: RecordFile)
+
+    suspend fun deleteFile(recordFile: String, recordId: Int)
 }
 
 /**
@@ -51,12 +53,17 @@ class RepositoryImpl @Inject constructor(
 
     // TODO: 16/03/21 This needs to be implemented checking the DB
     override suspend fun checkIfRecordHasFile(recordId: Int): Boolean {
-        return false
+        return localDataStore.checkIfRecordHasFileAttached(recordId)
     }
 
     override suspend fun insertFileForRecord(fileforRecord: RecordFile) {
         localDataStore.insertFileForRecord(fileforRecord)
     }
+
+    override suspend fun deleteFile(recordFile: String, recordId: Int) {
+        localDataStore.deleteFile(recordFile,recordId)
+    }
+
 
     override suspend fun fetchRecordFileListByRecord(id: Int): Flow<List<FileOfRecordBusiness?>> {
         return localDataStore.getFilesForRecordsBy(id).map { value ->

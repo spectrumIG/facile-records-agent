@@ -10,7 +10,7 @@ import it.facile.records.agent.databinding.FileItemBinding
 import it.facile.records.agent.domain.entity.local.FileOfRecordUI
 import java.text.SimpleDateFormat
 
-class FileForRecordListAdapter :
+class FileForRecordListAdapter(private val deleteCallback: (String) -> Unit) :
     ListAdapter<FileOfRecordUI, FileForRecordListAdapter.ViewHolder>(FileListDiffCallback()) {
 
     private var data: List<FileOfRecordUI?> = ArrayList()
@@ -21,7 +21,7 @@ class FileForRecordListAdapter :
 
     override fun getItemCount() = data.size
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(data[position])
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(data[position],deleteCallback)
 
     fun setData(list: List<FileOfRecordUI?>) {
         clearData()
@@ -29,7 +29,7 @@ class FileForRecordListAdapter :
         notifyDataSetChanged()
     }
 
-    fun clearData() {
+    private fun clearData() {
         (this.data as ArrayList).clear()
         notifyDataSetChanged()
     }
@@ -37,11 +37,15 @@ class FileForRecordListAdapter :
     class ViewHolder(private val binding: FileItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(
             item: FileOfRecordUI?,
+            deleteCallback: (String) -> Unit
         ) {
             with(itemView) {
                 binding.fileNameLabel.text = item?.filename ?: ""
                 binding.fileSizeLabel.text = item?.let { Formatter.formatShortFileSize(context, it.fileSize) }
                 binding.dateSaveLabel.text = SimpleDateFormat.getDateInstance().format(item?.addingDate?.time!!)
+                binding.fileItemContainer.setOnClickListener {
+                    deleteCallback(item.filename)
+                }
             }
         }
     }

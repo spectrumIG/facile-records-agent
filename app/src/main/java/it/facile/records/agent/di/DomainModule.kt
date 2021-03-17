@@ -5,11 +5,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import it.facile.records.agent.domain.repository.Repository
-import it.facile.records.agent.domain.usecase.InsertFileUseCase
-import it.facile.records.agent.domain.usecase.RecordDetailUseCase
-import it.facile.records.agent.domain.usecase.RecordsListUsecase
-import it.facile.records.agent.domain.usecase.UseCase
-import kotlinx.coroutines.CoroutineDispatcher
+import it.facile.records.agent.domain.usecase.*
 import javax.inject.Qualifier
 import javax.inject.Singleton
 
@@ -27,15 +23,22 @@ object DomainModule {
     @Provides
     @Singleton
     @RecordDetail
-    fun provideDetailUseCase(dispatcher: CoroutineDispatcher, repository: Repository): UseCase {
-        return RecordDetailUseCase(dispatcher, repository)
+    fun provideDetailUseCase(repository: Repository): UseCase {
+        return RecordDetailUseCase(repository)
     }
 
     @Provides
     @Singleton
     @InsertFile
-    fun provideInsertFileUseCase(dispatcher: CoroutineDispatcher,repository: Repository): UseCase {
-        return InsertFileUseCase(dispatcher,repository)
+    fun provideInsertFileUseCase(repository: Repository): UseCase {
+        return InsertFileUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    @DeleteFile
+    fun provideDeleteFileUseCase(repository: Repository): UseCase {
+        return DeleteFileUseCase(repository)
     }
 }
 
@@ -51,3 +54,7 @@ annotation class RecordDetail
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
 annotation class InsertFile
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class DeleteFile

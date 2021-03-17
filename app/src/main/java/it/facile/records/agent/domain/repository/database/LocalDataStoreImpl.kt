@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 class LocalDataStoreImpl @Inject constructor(private val recordsDao: RecordsDao) : DataStore {
 
-    suspend fun getFilesForRecordsBy(id: Int): Flow<List<FileOfRecord?>> {
+    fun getFilesForRecordsBy(id: Int): Flow<List<FileOfRecord?>> {
         return recordsDao.getAllFileForRecordById(id).map { value ->
             value.map { recordFile ->
                 FileOfRecord(recordFile.filename, recordFile.fileSize, recordFile.addingDate)
@@ -21,6 +21,14 @@ class LocalDataStoreImpl @Inject constructor(private val recordsDao: RecordsDao)
 
     suspend fun insertFileForRecord(file: RecordFile) {
         recordsDao.insertFileForRecord(file)
+    }
+
+    suspend fun checkIfRecordHasFileAttached(recordId: Int): Boolean{
+        return recordsDao.recordWithIdHasFilesAttached(recordId)
+    }
+
+    suspend fun deleteFile(recordFile: String, recordId: Int) {
+        recordsDao.deleteFileForRecord(recordFile,recordId)
     }
 
 
