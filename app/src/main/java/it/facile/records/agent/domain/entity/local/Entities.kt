@@ -12,7 +12,7 @@ data class Record(
     val recordName: String?,
 )
 
-@Entity(tableName = "file_table")
+@Entity(tableName = "file_table",indices = [Index(value = ["file_name"], unique = true)])
 data class RecordFile(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "file_id")
