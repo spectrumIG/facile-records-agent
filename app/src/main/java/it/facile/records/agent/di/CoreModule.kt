@@ -11,6 +11,7 @@ import fr.speekha.httpmocker.okhttp.MockResponseInterceptor
 import fr.speekha.httpmocker.okhttp.builder.mockInterceptor
 import it.facile.records.agent.BuildConfig
 import it.facile.records.agent.domain.repository.network.RestApi
+import kotlinx.coroutines.Dispatchers
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import okhttp3.Interceptor
@@ -31,6 +32,9 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object CoreModule {
     private const val BASE_URL = "https://www.facile.test.it/"
+
+    @Provides
+    fun provideCoroutinDispatcher() = Dispatchers.IO
 
     @Singleton
     @Provides
