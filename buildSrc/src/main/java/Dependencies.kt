@@ -1,5 +1,5 @@
 object Sdk {
-    const val MIN_SDK_VERSION = 22
+    const val MIN_SDK_VERSION = 21
     const val TARGET_SDK_VERSION = 30
     const val COMPILE_SDK_VERSION = 30
 }
@@ -19,7 +19,6 @@ object Versions {
     const val HILT_VIEWMODEL = "1.0.0-alpha03"
     const val HILT_NAVIGATION = "1.0.0-alpha03"
     const val OKHTTP = "4.9.0"
-    const val COIL = "1.1.0"
     const val LIVEDATAKTX = "2.2.0"
     const val VIEWMODELKTX = "2.2.0"
     const val NAVIGATION = "2.3.0"
