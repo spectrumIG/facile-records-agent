@@ -30,7 +30,7 @@ class RecordFileListUseCaseTest {
     @get:Rule
     val instantExecutorRule = InstantTaskExecutorRule()
 
-    private val mockSuccessBeerDetail = flow<List<FileOfRecordBusiness?>> {
+    private val mockSuccessFileRecordList = flow<List<FileOfRecordBusiness?>> {
         listOf<FileOfRecordBusiness>(mockk(relaxed = true) {
             every { filename } returns "File1"
             every { fileSize } returns 122012
@@ -55,7 +55,7 @@ class RecordFileListUseCaseTest {
     @ExperimentalCoroutinesApi
     @Test
     fun `verify that requesting a legit file list it returns correctly`() = runBlocking {
-        coEvery { repository.fetchRecordFileListByRecord(1) } returns mockSuccessBeerDetail
+        coEvery { repository.fetchRecordFileListByRecord(1) } returns mockSuccessFileRecordList
 
         val flow = useCase.retrievefilesForRecordBy(1)
 
