@@ -22,6 +22,11 @@ class MainActivity : AppCompatActivity() {
         setupNavigation()
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+    }
+
     private fun setupNavigation() {
         val toolbar = binding.toolbar
         toolbar.title = getString(R.string.title)

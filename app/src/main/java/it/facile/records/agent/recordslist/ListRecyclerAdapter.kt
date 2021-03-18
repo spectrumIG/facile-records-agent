@@ -39,14 +39,6 @@ class RecordsRecyclerAdapter :
             with(itemView) {
                 binding.recordName.text = item.recordName
 
-//                binding.hasFileCheckImg.visibility = when {
-//                    item.hasFile -> {
-//                        View.VISIBLE
-//                    }
-//                    else -> {
-//                        View.GONE
-//                    }
-//                }
                 binding.recordItemContainer.setOnClickListener {
                     item.recordName?.let { name ->
                         RecordsListFragmentDirections.actionBeersListFragmentToBeerDetailFragment(item.id, name)
