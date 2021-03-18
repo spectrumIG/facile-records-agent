@@ -12,6 +12,7 @@ import it.facile.records.agent.domain.usecase.RecordsListUsecase
 import it.facile.records.agent.library.android.entity.Result
 import it.facile.records.agent.util.MainCoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -54,7 +55,7 @@ class RecordsListViewModelTest {
 
     @ExperimentalCoroutinesApi
     @Test
-    fun `verify that asking for first page it returns something correctly`() {
+    fun `verify that asking for first page it returns something correctly`() = runBlockingTest{
         mainViewModel.records.observeForever {}
 
         coEvery { useCase.retrieveRecords() } returns Result.Success(mockSuccesResultList)
