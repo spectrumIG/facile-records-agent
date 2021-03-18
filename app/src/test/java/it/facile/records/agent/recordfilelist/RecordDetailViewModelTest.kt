@@ -31,6 +31,7 @@ class RecordDetailViewModelTest {
     val testCoroutineScope = MainCoroutineRule()
 
 
+    @ExperimentalCoroutinesApi
     @get:Rule
     val coroutineScope = MainCoroutineRule()
 
@@ -80,59 +81,5 @@ class RecordDetailViewModelTest {
         mainViewModel.fileForRecord.observeForever(observer)
     }
 
-//    @ExperimentalCoroutinesApi
-//    @Test
-//    fun `verify that asking for file list  page it returns something correct`() = testCoroutineScope.runBlockingTest {
-//        mainViewModel.fileForRecord.observeForever {}
-//
-//        coEvery { listUseCase.retrievefilesForRecordBy(1) } returns mockSuccesDetailResultList
-//
-//        mainViewModel.fetchRecordDetail(1)
-//
-////        mainViewModel.fileForRecord.getOrAwaitValue()
-////        mainViewModel.fileForRecord.getOrAwaitValue {
-////            val empty = mainViewModel.fileForRecord.value
-////            coroutineScope.advanceUntilIdle()
-////            val success = mainViewModel.fileForRecord.value
-////
-////            assertThat(success).isNotEmpty()
-////            assertThat(success?.get(0)?.filename).isEqualTo("File1")
-////            assertThat(success?.get(0)?.fileSize).isEqualTo(12222)
-////        }
-////        mainViewModel.fetchRecordDetail(1)
-//
-//        verify(observer, Mockito.times(1)).onChanged(captor.capture())
-//
-////        confirmVerified(mainViewModel)
-////        mainViewModel.fileForRecord.observeForTesting {
-////            val empty = mainViewModel.fileForRecord.value
-////            coroutineScope.advanceUntilIdle()
-////            val success = mainViewModel.fileForRecord.value
-////
-////            assertThat(success).isNotEmpty()
-////            assertThat(success?.get(0)?.filename).isEqualTo("File1")
-////            assertThat(success?.get(0)?.fileSize).isEqualTo(12222)
-////        }
-//
-////        val result = mainViewModel.fileForRecord.value
-////
-////        assertThat(result).isNotEmpty()
-////        assertThat(result?.get(0)?.filename).isEqualTo("File1")
-////        assertThat(result?.get(0)?.fileSize).isEqualTo(12222)
-//
-//    }
-//
-//    @ExperimentalCoroutinesApi
-//    @Test
-//    fun `verify that asking for error detail it manage correctly the error`() {
-//
-//        coEvery { listUseCase.retrievefilesForRecordBy(any()) } returns mockErrorResultList
-//
-//        mainViewModel.fetchRecordDetail(1)
-//
-//        val result = mainViewModel.fileForRecord.value
-//
-//        assertThat(result).isEmpty()
-//    }
 
 }
