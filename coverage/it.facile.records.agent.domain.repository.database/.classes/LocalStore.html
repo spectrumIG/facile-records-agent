@@ -1,0 +1,163 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: LocalStore</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.facile.records.agent.domain.repository.database</a> ]
+</div>
+
+<h1>Coverage Summary for Class: LocalStore (it.facile.records.agent.domain.repository.database)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">LocalStore</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 2)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">LocalStore$getFilesForRecordsBy$$inlined$map$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/ 7)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">LocalStore$getFilesForRecordsBy$$inlined$map$1$2</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (1/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    9,1%
+  </span>
+  <span class="absValue">
+    (1/ 11)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    60%
+  </span>
+  <span class="absValue">
+    (3/ 5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    40%
+  </span>
+  <span class="absValue">
+    (8/ 20)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.facile.records.agent.domain.repository.database
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.facile.records.agent.domain.entity.local.FileOfRecord
+<i>4</i>&nbsp;import it.facile.records.agent.domain.entity.local.RecordFile
+<i>5</i>&nbsp;import it.facile.records.agent.domain.repository.DataStore
+<i>6</i>&nbsp;import it.facile.records.agent.domain.repository.database.dao.RecordsDao
+<i>7</i>&nbsp;import kotlinx.coroutines.flow.Flow
+<i>8</i>&nbsp;import kotlinx.coroutines.flow.map
+<i>9</i>&nbsp;import javax.inject.Inject
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;class LocalStore @Inject constructor(private val recordsDao: RecordsDao) : DataStore {
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;    fun getFilesForRecordsBy(id: Int): Flow&lt;List&lt;FileOfRecord?&gt;&gt; {
+<b class="nc"><i>15</i>&nbsp;        return recordsDao.getAllFileForRecordById(id).map { value -&gt;</b>
+<b class="nc"><i>16</i>&nbsp;            value.map { recordFile -&gt;</b>
+<b class="nc"><i>17</i>&nbsp;                FileOfRecord(recordFile.filename, recordFile.fileSize, recordFile.addingDate)</b>
+<i>18</i>&nbsp;            }
+<i>19</i>&nbsp;        }
+<i>20</i>&nbsp;    }
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;    suspend fun insertFileForRecord(file: RecordFile) {
+<i>23</i>&nbsp;        recordsDao.insertFileForRecord(file)
+<i>24</i>&nbsp;    }
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;    suspend fun checkIfRecordHasFileAttached(recordId: Int): Boolean{
+<i>27</i>&nbsp;        return recordsDao.recordWithIdHasFilesAttached(recordId)
+<i>28</i>&nbsp;    }
+<i>29</i>&nbsp;
+<i>30</i>&nbsp;    suspend fun deleteFile(recordFile: String, recordId: Int) {
+<i>31</i>&nbsp;        recordsDao.deleteFileForRecord(recordFile,recordId)
+<i>32</i>&nbsp;    }
+<i>33</i>&nbsp;
+<i>34</i>&nbsp;
+<i>35</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-03-18 23:02</div>
+</div>
+</body>
+</html>

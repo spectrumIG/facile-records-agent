@@ -1,0 +1,95 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: RecordsDao</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.facile.records.agent.domain.repository.database.dao</a> ]
+</div>
+
+<h1>Coverage Summary for Class: RecordsDao (it.facile.records.agent.domain.repository.database.dao)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+</tr>
+  <tr>
+    <td class="name">RecordsDao$Subclass2</td>
+  </tr>
+  <tr>
+    <td class="name">RecordsDao$Subclass2$auxiliary$NJWNFJt4</td>
+  </tr>
+  <tr>
+    <td class="name">RecordsDao$Subclass2$auxiliary$NZXBSv7m</td>
+  </tr>
+  <tr>
+    <td class="name">RecordsDao$Subclass2$auxiliary$oPv3piBI</td>
+  </tr>
+  <tr>
+    <td class="name">RecordsDao$Subclass2$auxiliary$YDAq9B93</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.facile.records.agent.domain.repository.database.dao
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import androidx.room.*
+<i>4</i>&nbsp;import it.facile.records.agent.domain.entity.local.Record
+<i>5</i>&nbsp;import it.facile.records.agent.domain.entity.local.RecordFile
+<i>6</i>&nbsp;import it.facile.records.agent.domain.entity.local.RecordWithFiles
+<i>7</i>&nbsp;import kotlinx.coroutines.flow.Flow
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;@Dao
+<i>10</i>&nbsp;interface RecordsDao {
+<i>11</i>&nbsp;    @Transaction
+<i>12</i>&nbsp;    @Query(&quot;SELECT * FROM Record&quot;)
+<i>13</i>&nbsp;    suspend fun getAllFileForRecords(): List&lt;RecordWithFiles&gt;
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;    @Query(&quot;SELECT DISTINCT * FROM file_table WHERE record_id = :recordId ORDER BY file_name&quot;)
+<i>16</i>&nbsp;    fun getAllFileForRecordById(recordId: Int): Flow&lt;List&lt;RecordFile&gt;&gt;
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;    @Insert(onConflict = OnConflictStrategy.REPLACE)
+<i>19</i>&nbsp;    suspend fun insertAllRecord(records: List&lt;Record&gt;)
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;    @Delete
+<i>22</i>&nbsp;    suspend fun deleteRecord(record: Record)
+<i>23</i>&nbsp;
+<i>24</i>&nbsp;    @Query(&quot;SELECT EXISTS(SELECT 1 FROM file_table WHERE record_id= :id)&quot;)
+<i>25</i>&nbsp;    suspend fun recordWithIdHasFilesAttached(id: Int): Boolean
+<i>26</i>&nbsp;
+<i>27</i>&nbsp;    @Insert(onConflict = OnConflictStrategy.REPLACE)
+<i>28</i>&nbsp;    suspend fun insertFileForRecord(recordFile: RecordFile)
+<i>29</i>&nbsp;
+<i>30</i>&nbsp;    @Query(&quot;DELETE FROM  file_table WHERE file_name= :filename AND record_id= :recordId &quot;)
+<i>31</i>&nbsp;    suspend fun deleteFileForRecord(filename:String, recordId :Int)
+<i>32</i>&nbsp;
+<i>33</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-03-18 23:02</div>
+</div>
+</body>
+</html>

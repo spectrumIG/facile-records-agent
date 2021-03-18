@@ -1,0 +1,110 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: RemoteDataStore</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.facile.records.agent.di</a> ]
+</div>
+
+<h1>Coverage Summary for Class: RemoteDataStore (it.facile.records.agent.di)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">RemoteDataStore</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.facile.records.agent.di
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import android.content.Context
+<i>4</i>&nbsp;import dagger.Module
+<i>5</i>&nbsp;import dagger.Provides
+<i>6</i>&nbsp;import dagger.hilt.InstallIn
+<i>7</i>&nbsp;import dagger.hilt.android.qualifiers.ApplicationContext
+<i>8</i>&nbsp;import dagger.hilt.components.SingletonComponent
+<i>9</i>&nbsp;import it.facile.records.agent.domain.repository.DataStore
+<i>10</i>&nbsp;import it.facile.records.agent.domain.repository.Repository
+<i>11</i>&nbsp;import it.facile.records.agent.domain.repository.RepositoryImpl
+<i>12</i>&nbsp;import it.facile.records.agent.domain.repository.database.LocalDatabase
+<i>13</i>&nbsp;import it.facile.records.agent.domain.repository.database.LocalStore
+<i>14</i>&nbsp;import it.facile.records.agent.domain.repository.database.dao.RecordsDao
+<i>15</i>&nbsp;import it.facile.records.agent.domain.repository.network.RemoteStore
+<i>16</i>&nbsp;import it.facile.records.agent.domain.repository.network.RestApi
+<i>17</i>&nbsp;import javax.inject.Qualifier
+<i>18</i>&nbsp;import javax.inject.Singleton
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;@ExperimentalStdlibApi
+<i>22</i>&nbsp;@Module
+<i>23</i>&nbsp;@InstallIn(SingletonComponent::class)
+<i>24</i>&nbsp;object RepositoryModule {
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;    @Provides
+<i>27</i>&nbsp;    @Singleton
+<i>28</i>&nbsp;    fun provideRepository(@LocalDataStore localDataStore: DataStore, @RemoteDataStore remoteStore: DataStore): Repository {
+<i>29</i>&nbsp;        return RepositoryImpl(localDataStore as LocalStore, remoteStore as RemoteStore)
+<i>30</i>&nbsp;    }
+<i>31</i>&nbsp;
+<i>32</i>&nbsp;    @Provides
+<i>33</i>&nbsp;    @Singleton
+<i>34</i>&nbsp;    @LocalDataStore
+<i>35</i>&nbsp;    fun providesLocalDataStore(recordsDao: RecordsDao): DataStore {
+<i>36</i>&nbsp;        return LocalStore(recordsDao)
+<i>37</i>&nbsp;    }
+<i>38</i>&nbsp;
+<i>39</i>&nbsp;    @Provides
+<i>40</i>&nbsp;    @RemoteDataStore
+<i>41</i>&nbsp;    fun providesRemoteDataStore(restApi: RestApi): DataStore {
+<i>42</i>&nbsp;        return RemoteStore(restApi)
+<i>43</i>&nbsp;    }
+<i>44</i>&nbsp;
+<i>45</i>&nbsp;    @Singleton
+<i>46</i>&nbsp;    @Provides
+<i>47</i>&nbsp;    fun provideAppDatabase(@ApplicationContext context: Context): LocalDatabase {
+<i>48</i>&nbsp;        return LocalDatabase.getInstance(context)
+<i>49</i>&nbsp;    }
+<i>50</i>&nbsp;
+<i>51</i>&nbsp;    @Provides
+<i>52</i>&nbsp;    fun provideRecordsDao(appDatabase: LocalDatabase): RecordsDao {
+<i>53</i>&nbsp;        return appDatabase.recordDao()
+<i>54</i>&nbsp;    }
+<i>55</i>&nbsp;}
+<i>56</i>&nbsp;
+<i>57</i>&nbsp;@Qualifier
+<i>58</i>&nbsp;@Retention(AnnotationRetention.RUNTIME)
+<i>59</i>&nbsp;annotation class LocalDataStore
+<i>60</i>&nbsp;
+<i>61</i>&nbsp;@Qualifier
+<i>62</i>&nbsp;@Retention(AnnotationRetention.RUNTIME)
+<i>63</i>&nbsp;annotation class RemoteDataStore
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-03-18 23:02</div>
+</div>
+</body>
+</html>

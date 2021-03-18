@@ -1,0 +1,153 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: RecordsListViewModel</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.facile.records.agent.recordslist</a> ]
+</div>
+
+<h1>Coverage Summary for Class: RecordsListViewModel (it.facile.records.agent.recordslist)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">RecordsListViewModel</td>
+<td class="coverageStat">
+  <span class="percent">
+    75%
+  </span>
+  <span class="absValue">
+    (3/ 4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    91,7%
+  </span>
+  <span class="absValue">
+    (11/ 12)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">RecordsListViewModel$getAllRecords$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (5/ 5)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    80%
+  </span>
+  <span class="absValue">
+    (4/ 5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    94,1%
+  </span>
+  <span class="absValue">
+    (16/ 17)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.facile.records.agent.recordslist
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import androidx.lifecycle.LiveData
+<i>4</i>&nbsp;import androidx.lifecycle.MutableLiveData
+<i>5</i>&nbsp;import androidx.lifecycle.ViewModel
+<i>6</i>&nbsp;import androidx.lifecycle.viewModelScope
+<i>7</i>&nbsp;import dagger.hilt.android.lifecycle.HiltViewModel
+<i>8</i>&nbsp;import it.facile.records.agent.di.RecordsList
+<i>9</i>&nbsp;import it.facile.records.agent.domain.entity.local.RecordForUi
+<i>10</i>&nbsp;import it.facile.records.agent.domain.usecase.RecordsListUsecase
+<i>11</i>&nbsp;import it.facile.records.agent.domain.usecase.UseCase
+<i>12</i>&nbsp;import it.facile.records.agent.library.android.entity.Result
+<i>13</i>&nbsp;import kotlinx.coroutines.launch
+<i>14</i>&nbsp;import javax.inject.Inject
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;@HiltViewModel
+<b class="fc"><i>17</i>&nbsp;class RecordsListViewModel @Inject constructor(</b>
+<i>18</i>&nbsp;   @RecordsList private val usecase: UseCase
+<b class="fc"><i>19</i>&nbsp;) : ViewModel() {</b>
+<b class="fc"><i>20</i>&nbsp;    private val _records = MutableLiveData&lt;Result&lt;List&lt;RecordForUi&gt;&gt;&gt;()</b>
+<i>21</i>&nbsp;    val records: LiveData&lt;Result&lt;List&lt;RecordForUi&gt;&gt;&gt;
+<b class="fc"><i>22</i>&nbsp;        get() = _records</b>
+<i>23</i>&nbsp;
+<b class="fc"><i>24</i>&nbsp;    private val _showProgress = MutableLiveData(false)</b>
+<i>25</i>&nbsp;    val showProgress: LiveData&lt;Boolean&gt;
+<b class="nc"><i>26</i>&nbsp;        get() = _showProgress</b>
+<i>27</i>&nbsp;
+<b class="fc"><i>28</i>&nbsp;    init {</b>
+<b class="fc"><i>29</i>&nbsp;        getAllRecords()</b>
+<b class="fc"><i>30</i>&nbsp;    }</b>
+<i>31</i>&nbsp;
+<i>32</i>&nbsp;    fun getAllRecords() {
+<b class="fc"><i>33</i>&nbsp;        val recordsListUsecase = usecase as RecordsListUsecase</b>
+<i>34</i>&nbsp;
+<b class="fc"><i>35</i>&nbsp;        viewModelScope.launch {</b>
+<b class="fc"><i>36</i>&nbsp;            _showProgress.postValue(true)</b>
+<i>37</i>&nbsp;
+<b class="fc"><i>38</i>&nbsp;            _records.postValue(recordsListUsecase.retrieveRecords())</b>
+<i>39</i>&nbsp;
+<b class="fc"><i>40</i>&nbsp;            _showProgress.postValue(false)</b>
+<b class="fc"><i>41</i>&nbsp;        }</b>
+<b class="fc"><i>42</i>&nbsp;    }</b>
+<i>43</i>&nbsp;
+<i>44</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-03-18 23:02</div>
+</div>
+</body>
+</html>
