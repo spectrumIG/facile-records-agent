@@ -8,8 +8,8 @@ import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
-import it.facile.records.agent.domain.entity.remote.BeerDetailDTO
-import it.facile.records.agent.domain.entity.remote.RecordDTO
+import it.facile.records.agent.domain.entity.remote.RecordListDTO
+import it.facile.records.agent.library.android.entity.Result
 import it.facile.records.agent.util.MainCoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
@@ -33,20 +33,22 @@ class RemoteStoreTest {
     private lateinit var remoteStore: RemoteStore
 
     private val mockedSuccessResponseList =
-        listOf(
-            mockk<RecordDTO>(relaxed = true) {
-                every { id } returns 1
-                every { description } returns "Beatiful long description"
-                every { tagline } returns "Beatiful long tagline"
-            })
-    private val mockedSuccessDetailResponse =
-        listOf(
-            mockk<BeerDetailDTO>(relaxed = true) {
-                every { id } returns 1
-                every { description } returns "Beatiful long description"
-                every { tagline } returns "Beatiful long tagline"
-            })
-
+        mockk<RecordListDTO> {
+            every { records } returns listOf(
+                mockk {
+                    every { id } returns 1
+                    every { recordName } returns "Records1"
+                },
+                mockk {
+                    every { id } returns 2
+                    every { recordName } returns "Records2"
+                },
+                mockk {
+                    every { id } returns 3
+                    every { recordName } returns "Records23"
+                },
+            )
+        }
 
     @Before
     fun setUp() {
@@ -56,37 +58,22 @@ class RemoteStoreTest {
 
     @ExperimentalStdlibApi
     @Test
-    fun `test on network error it returns correctly failed for list of beers`() {
-        coEvery { restApi.retrieveRecordsFromRemote(any(), any()) } returns Response.error(404, "responseBody".toResponseBody())
+    fun `test on network error it returns correctly failed for list of records`() {
+        coEvery { restApi.retrieveRecordsFromRemote() } returns Response.error(404, "responseBody".toResponseBody())
 
-        val response = runBlocking { remoteStore.getAllrecords(1, null, null) }
-        assertThat(response.failed).isTrue()
+        val response = runBlocking {remoteStore.getAllrecords() }
+
+        assertThat(response.succeded).isTrue()
+        val success = response as Result.Success
+        assertThat(success.data).isEmpty()
     }
 
     @ExperimentalStdlibApi
     @Test
     fun `test on network success it returns correctly success for list of beers`() {
-        coEvery { restApi.retrieveRecordsFromRemote(any(), any()) } returns Response.success(mockedSuccessResponseList)
+        coEvery { restApi.retrieveRecordsFromRemote() } returns Response.success(mockedSuccessResponseList)
 
-        val response = runBlocking { remoteStore.getAllrecords(1, null, null) }
-        assertThat(response.succeded).isTrue()
-    }
-
-    @ExperimentalStdlibApi
-    @Test
-    fun `test on network error it returns correctly failed for detail`() {
-        coEvery { restApi.getDetailOfABeer(any()) } returns Response.error(404, "responseBody".toResponseBody())
-
-        val response = runBlocking { remoteStore.getBeerDetailBy(1) }
-        assertThat(response.failed).isTrue()
-    }
-
-    @ExperimentalStdlibApi
-    @Test
-    fun `test on network success it returns correctly success for detail`() {
-        coEvery { restApi.getDetailOfABeer(any()) } returns Response.success(mockedSuccessDetailResponse)
-
-        val response = runBlocking { remoteStore.getBeerDetailBy(1) }
+        val response = runBlocking { remoteStore.getAllrecords() }
         assertThat(response.succeded).isTrue()
     }
 }

@@ -7,8 +7,7 @@ import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
-import it.facile.records.agent.domain.entity.local.Record
-import it.facile.records.agent.domain.entity.local.RecordDetail
+import it.facile.records.agent.domain.entity.local.RecordBusinessData
 import it.facile.records.agent.domain.repository.Repository
 import it.facile.records.agent.library.android.entity.Result
 import it.facile.records.agent.util.MainCoroutineRule
@@ -30,34 +29,21 @@ class RecordsListUsecaseTest {
     @get:Rule
     val instantExecutorRule = InstantTaskExecutorRule()
 
-    private val mockSuccesResultList = listOf<Record>(
+    private val mockSuccesResultList = listOf<RecordBusinessData>(
         mockk(relaxed = true) {
             every { id } returns 1
-            every { name } returns "Punk IPA"
-            every { date } returns "12-2012"
-            every { tagline } returns "Beatiful long tagline"
+            every { recordName } returns "Record1"
         },
         mockk(relaxed = true) {
             every { id } returns 2
-            every { name } returns "Punk IPA"
-            every { date } returns "12-2019"
-            every { tagline } returns "Beatiful long tagline"
+            every { recordName } returns "Record2"
         },
         mockk(relaxed = true) {
             every { id } returns 3
-            every { name } returns "Punk IPA"
-            every { date } returns "12-2010"
-            every { tagline } returns "Beatiful long tagline"
+            every { recordName } returns "Record3"
         })
 
-    private val mockSuccessBeerDetail = listOf<RecordDetail>(mockk(relaxed = true) {
-        every { id } returns 1
-        every { name } returns "Punk IPA"
-        every { firstBrewed } returns "12-2012"
-        every { tagline } returns "Beatiful long tagline"
-    })
-
-    private val mockErrorResult: Result<List<Record>> = Result.Error(Exception("error"))
+    private val mockErrorResult: Result<List<RecordBusinessData>> = Result.Error(Exception("error"))
 
     private lateinit var useCase: RecordsListUsecase
 
@@ -73,44 +59,21 @@ class RecordsListUsecaseTest {
 
     @ExperimentalCoroutinesApi
     @Test
-    fun `verify that one page requested one page is returned as successfull`() {
-        coEvery { repository.getAllRecords(1) } returns Result.Success(mockSuccesResultList)
+    fun `verify that correct requested is returned as successfull`() {
+        coEvery { repository.getAllRecordsFromServer() } returns Result.Success(mockSuccesResultList)
 
-        val retrieveBeersPaginated = runBlocking() { useCase.retrieveBeersPaginated(1) }
+        val retrieveBeersPaginated = runBlocking { useCase.retrieveRecords() }
 
         assertThat(retrieveBeersPaginated.succeded).isTrue()
     }
 
     @ExperimentalCoroutinesApi
     @Test
-    fun `verify simple paginated wrong call correct answer`() {
-        coEvery { repository.getAllRecords(any()) } returns mockErrorResult
+    fun `verify simple wrong call correct answer`() {
+        coEvery { repository.getAllRecordsFromServer() } returns mockErrorResult
 
-        val retrieveBeersPaginated = runBlocking { useCase.retrieveBeersPaginated(1) }
+        val retrieveBeersPaginated = runBlocking { useCase.retrieveRecords() }
 
         assertThat(retrieveBeersPaginated.failed).isTrue()
     }
-
-
-//    @ExperimentalCoroutinesApi
-//    @Test
-//    fun `verify that one beer detail requested one page is returned as successfull`() {
-//        coEvery { repository.fetchBeerDetailBy(1) } returns Result.Success(mockSuccessBeerDetail)
-//
-//        val retrieveBeersPaginated = runBlocking { useCase.(1) }
-//
-//        Assert.assertThat(retrieveBeersPaginated.succeded, `is`(true))
-//
-//    }
-//
-//    @ExperimentalCoroutinesApi
-//    @Test
-//    fun `verify simple paginated wrong call correct answer`() {
-//        coEvery { repository.fetchAllBeerPaginated(any()) } returns mockErrorResult
-//
-//        val retrieveBeersPaginated = runBlocking { useCase.retrieveBeersPaginated(1) }
-//
-//        Assert.assertThat(retrieveBeersPaginated.failed, `is`(true))
-//    }
-
 }
