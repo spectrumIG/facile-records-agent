@@ -42,7 +42,6 @@ android {
     }
     buildFeatures {
         viewBinding = true
-        dataBinding = true
     }
 
     lintOptions {
@@ -80,6 +79,9 @@ dependencies {
     implementation(NetLibs.OKHTTP_LOGGIN_INTERCEPTOR)
     implementation(NetLibs.SERIALIZATION_ADAPTER)
     implementation(NetLibs.KOTLIN_SERIALIZATION)
+    implementation(NetLibs.HTTP_MOCKER_LIB)
+    implementation(NetLibs.HTTP_MOCKER_ADAPTER)
+
 
     implementation(JetPackKTX.LIVEDATA)
     implementation(JetPackKTX.LIFECYCLESCOPE)
@@ -94,7 +96,6 @@ dependencies {
 
     implementation(CoreLibs.TIMBER_LIB)
     implementation(CoreLibs.EAZY_PERMISSIONS)
-    implementation(CoilImageLib.COIL)
 
     implementation(RoomLib.ROOM)
     implementation(RoomLib.ROOM_KTX)
@@ -108,7 +109,7 @@ dependencies {
 
     kapt(DILibs.HILT_DI_COMPILER)
     kapt(DILibs.HILT_DI_COMPILER_KAPT)
-//    kapt(RoomLib.ROOM_COMPILER)
+    kapt(RoomLib.ROOM_COMPILER)
 
     testImplementation(TestingLib.JUNIT)
     testImplementation(TestingLib.ROOM_TESTING)
@@ -116,7 +117,7 @@ dependencies {
     testImplementation(TestingLib.MOCKITO_KOTLIN)
     testImplementation(TestingLib.COROUTINE_HELPER)
 
-    testImplementation(TestingLib.RETTROFIT_MOCK)
+    testImplementation(TestingLib.RETROFIT_MOCK)
     testImplementation(TestingLib.MOCKK_TEST)
     testImplementation(TestingLib.TEST_TRUTH)
 //    testImplementation(TestingLib.MOCKK_COROUTINE)

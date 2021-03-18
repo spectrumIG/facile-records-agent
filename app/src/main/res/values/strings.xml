@@ -1,32 +1,14 @@
 <resources>
-    <string name="app_name">PunkBeersList</string>
-    <string name="title">Beers List</string>
-    <string name="compute">Compute</string>
-    <string name="notification_title">The Result is:</string>
+    <string name="app_name">Records Agents</string>
+    <string name="title">Records List</string>
 
-    <string name="abv_label">abv</string>
-    <string name="ibu_label">ibu</string>
-    <string name="target_fg_label">target fg</string>
-    <string name="target_og_label">target og</string>
-    <string name="ebc_label">ebc</string>
-    <string name="srm_label">srm</string>
-    <string name="ph_label">ph</string>
-    <string name="attenuation_level_label">Att. level</string>
-    <string name="brewed_before">Brewed: %1$s</string>
-    <string name="volume_label">Volume</string>
-    <string name="boil_volume_label">Boil Vol.</string>
-    <string name="fermentation_label">Fermentation: </string>
-    <string name="food_pairing">Food paring</string>
-    <string name="brewers_tips">Brewers Tips</string>
-    <string name="contributed_by">Contributed by</string>
-    <string name="breweing_method">Method:</string>
-    <string name="mash_temp_label">Mash temperatures:</string>
-    <string name="twist_label">Twist: </string>
-    <string name="indredients_label">Ingredients:</string>
-    <string name="malts_label">Malts:</string>
-    <string name="hops_label">Hops:</string>
-    <string name="yeast_label">Yeast:</string>
-    <string name="alert_error_message">Sorry, there were some problems with the beer. Please,come back later.</string>
+    <string name="alert_error_message">Sorry, there were some problems. Please,come back later.</string>
     <string name="error_alert_title">Ops!</string>
+    <string name="empty_records_list_label">No records found</string>
+    <string name="main_list_error_msg">Errors while retrieving records, please try again later</string>
+    <string name="permission_alert_text_label">Sorry, this app needs read file permission to be executed. Please, go to Settings and grant them</string>
+    <string name="file_list_detail_title">List of file for Record</string>
+    <string name="dialog_text_label">Do you really want to delete this item?</string>
+    <string name="dialog_title_label">Warning</string>
 
 </resources>

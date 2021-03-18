@@ -1,16 +1,17 @@
 package it.facile.records.agent.di
 
-import android.content.Context
-import coil.ImageLoader
-import coil.util.DebugLogger
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import fr.speekha.httpmocker.Mode
+import fr.speekha.httpmocker.model.ResponseDescriptor
+import fr.speekha.httpmocker.okhttp.MockResponseInterceptor
+import fr.speekha.httpmocker.okhttp.builder.mockInterceptor
 import it.facile.records.agent.BuildConfig
 import it.facile.records.agent.domain.repository.network.RestApi
+import kotlinx.coroutines.Dispatchers
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import okhttp3.Interceptor
@@ -20,11 +21,18 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import javax.inject.Singleton
 
+/**
+ * This is the main Hilt modules. I'll keep the Kotlin serializations, Retrofit
+ * and okHttp libs even if the remote repo is mocked for completeness
+ * */
 @ExperimentalSerializationApi
 @Module
 @InstallIn(SingletonComponent::class)
 object CoreModule {
-    const val BASE_URL = "https://api.punkapi.com/v2/"
+    private const val BASE_URL = "https://www.facile.test.it/"
+
+    @Provides
+    fun provideCoroutinDispatcher() = Dispatchers.IO
 
     @Singleton
     @Provides
@@ -70,25 +78,53 @@ object CoreModule {
 
     @Singleton
     @Provides
-    fun provideInterceptors(): ArrayList<Interceptor> {
+    fun provideInterceptors(loggingInterceptor: HttpLoggingInterceptor,mockResponseInterceptor: MockResponseInterceptor): ArrayList<Interceptor> {
         val interceptors = arrayListOf<Interceptor>()
-        val loggingInterceptor = HttpLoggingInterceptor().apply {
-            level = if (BuildConfig.DEBUG) {
+        interceptors.add(loggingInterceptor)
+        interceptors.add(mockResponseInterceptor)
+        return interceptors
+    }
+
+    @Singleton
+    @Provides
+    fun provideLogginInterceptor(): HttpLoggingInterceptor {
+        return HttpLoggingInterceptor().apply {
+            level = if(BuildConfig.DEBUG) {
                 HttpLoggingInterceptor.Level.BODY
             } else {
                 HttpLoggingInterceptor.Level.NONE
             }
         }
-        interceptors.add(loggingInterceptor)
-        return interceptors
     }
 
+    @Singleton
     @Provides
-    fun provideCoilImageLoader(@ApplicationContext context: Context): ImageLoader {
-        return if (BuildConfig.DEBUG) {
-            ImageLoader.Builder(context).logger(DebugLogger()).build()
-        } else {
-            ImageLoader.Builder(context).build()
+    fun provideHttpMockeryInterceptor(): MockResponseInterceptor {
+        return mockInterceptor {
+            useDynamicMocks {
+                // response is choosen more or less randomely.
+                if((0..100).random().rem(2) == 0) {
+                    ResponseDescriptor(delay = 1000L, code = 200, "application/json", body = """
+                    {
+                       "records":[
+                          {
+                             "id":10,
+                             "record_name":"Passaporto"
+                          },
+                          {
+                             "id":11,
+                             "record_name":"Contratto"
+                          }
+                       ]
+                    }
+                """.trimIndent())
+
+                } else {
+                    ResponseDescriptor(500L, code = 404,)
+                }
+            }
+            setMode(Mode.ENABLED)
         }
+
     }
 }

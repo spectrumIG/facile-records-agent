@@ -1,7 +1,7 @@
-val PUBLISHING_GROUP = "it.subito.test.punkapi"
+val PUBLISHING_GROUP = "it.facile.records.agent"
 
 object AppCoordinates {
-    const val APP_ID = "it.subito.test.punkapi"
+    const val APP_ID = "it.facile.records.agent"
 
     const val APP_VERSION_NAME = "1.0.0"
     const val APP_VERSION_CODE = 1

@@ -15,7 +15,8 @@ open class BaseFragment(layout: Int) : Fragment(layout) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestPermissions(
-            Manifest.permission.INTERNET
+            Manifest.permission.INTERNET,
+            Manifest.permission.READ_EXTERNAL_STORAGE
         ) {
             requestCode = 10
             resultCallback = {
@@ -23,7 +24,7 @@ open class BaseFragment(layout: Int) : Fragment(layout) {
                     is PermissionResult.PermissionGranted -> {
                     }
                     is PermissionResult.PermissionDenied -> {
-                        AlertDialog.Builder(requireContext()).setMessage("Spiacenti, l'app necessita dei permessi per poter essere eseguita.")
+                        AlertDialog.Builder(requireContext()).setMessage(getString(R.string.permission_alert_text_label))
                             .setPositiveButton(
                                 R.string
                                     .ok
@@ -33,6 +34,14 @@ open class BaseFragment(layout: Int) : Fragment(layout) {
                             }
                     }
                     is PermissionResult.PermissionDeniedPermanently -> {
+                        AlertDialog.Builder(requireContext()).setMessage(getString(R.string.permission_alert_text_label))
+                            .setPositiveButton(
+                                R.string
+                                    .ok
+                            ) { dialog, _ ->
+                                dialog.dismiss()
+                                requireActivity().finish()
+                            }
                     }
                     is PermissionResult.ShowRational -> {
                     }

@@ -5,9 +5,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import it.facile.records.agent.domain.repository.Repository
-import it.facile.records.agent.domain.usecase.BeerDetailUseCase
-import it.facile.records.agent.domain.usecase.BeersListUsecase
-import it.facile.records.agent.domain.usecase.UseCase
+import it.facile.records.agent.domain.usecase.*
 import javax.inject.Qualifier
 import javax.inject.Singleton
 
@@ -17,23 +15,46 @@ object DomainModule {
 
     @Provides
     @Singleton
-    @BeersList
+    @RecordsList
     fun provideListUseCase(repository: Repository): UseCase {
-        return BeersListUsecase(repository)
+        return RecordsListUsecase(repository)
     }
+
     @Provides
     @Singleton
-    @BeerDetail
+    @RecordsFileList
     fun provideDetailUseCase(repository: Repository): UseCase {
-        return BeerDetailUseCase(repository)
+        return RecordFileListUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    @InsertFile
+    fun provideInsertFileUseCase(repository: Repository): UseCase {
+        return InsertFileUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    @DeleteFile
+    fun provideDeleteFileUseCase(repository: Repository): UseCase {
+        return DeleteFileUseCase(repository)
     }
 }
 
 
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
-annotation class BeersList
+annotation class RecordsList
 
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
-annotation class BeerDetail
+annotation class RecordsFileList
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class InsertFile
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class DeleteFile

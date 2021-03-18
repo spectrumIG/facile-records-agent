@@ -1,12 +1,17 @@
 package it.facile.records.agent.di
 
+import android.content.Context
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import it.facile.records.agent.domain.repository.DataStore
 import it.facile.records.agent.domain.repository.Repository
 import it.facile.records.agent.domain.repository.RepositoryImpl
+import it.facile.records.agent.domain.repository.database.LocalDatabase
+import it.facile.records.agent.domain.repository.database.LocalStore
+import it.facile.records.agent.domain.repository.database.dao.RecordsDao
 import it.facile.records.agent.domain.repository.network.RemoteStore
 import it.facile.records.agent.domain.repository.network.RestApi
 import javax.inject.Qualifier
@@ -20,20 +25,32 @@ object RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideRepository(@RemoteDataStore remoteStore: DataStore): Repository {
-        return RepositoryImpl(remoteStore as RemoteStore)
+    fun provideRepository(@LocalDataStore localDataStore: DataStore, @RemoteDataStore remoteStore: DataStore): Repository {
+        return RepositoryImpl(localDataStore as LocalStore, remoteStore as RemoteStore)
     }
 
     @Provides
+    @Singleton
     @LocalDataStore
-    fun providesLocalDataStore(): DataStore {
-        TODO()
+    fun providesLocalDataStore(recordsDao: RecordsDao): DataStore {
+        return LocalStore(recordsDao)
     }
 
     @Provides
     @RemoteDataStore
     fun providesRemoteDataStore(restApi: RestApi): DataStore {
         return RemoteStore(restApi)
+    }
+
+    @Singleton
+    @Provides
+    fun provideAppDatabase(@ApplicationContext context: Context): LocalDatabase {
+        return LocalDatabase.getInstance(context)
+    }
+
+    @Provides
+    fun provideRecordsDao(appDatabase: LocalDatabase): RecordsDao {
+        return appDatabase.recordDao()
     }
 }
 

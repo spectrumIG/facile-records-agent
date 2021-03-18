@@ -1,0 +1,74 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: RestApi</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.facile.records.agent.domain.repository.network</a> ]
+</div>
+
+<h1>Coverage Summary for Class: RestApi (it.facile.records.agent.domain.repository.network)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+</tr>
+  <tr>
+    <td class="name">RestApi$Subclass4</td>
+  </tr>
+  <tr>
+    <td class="name">RestApi$Subclass4$auxiliary$iiQ5TjCK</td>
+  </tr>
+  <tr>
+    <td class="name">RestApi$Subclass4$auxiliary$S6uJQXDK</td>
+  </tr>
+  <tr>
+    <td class="name">RestApi$Subclass4$auxiliary$SO2GEkqx</td>
+  </tr>
+  <tr>
+    <td class="name">RestApi$Subclass4$auxiliary$U4dR5EzA</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.facile.records.agent.domain.repository.network
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.facile.records.agent.domain.entity.remote.RecordListDTO
+<i>4</i>&nbsp;import retrofit2.Response
+<i>5</i>&nbsp;import retrofit2.http.GET
+<i>6</i>&nbsp;import retrofit2.http.Headers
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;interface RestApi {
+<i>9</i>&nbsp;    @Headers(&quot;Content-type:application/json&quot;)
+<i>10</i>&nbsp;    @GET(&quot;records&quot;)
+<i>11</i>&nbsp;    suspend fun retrieveRecordsFromRemote(): Response&lt;RecordListDTO&gt;
+<i>12</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-03-18 23:02</div>
+</div>
+</body>
+</html>

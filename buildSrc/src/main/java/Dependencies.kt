@@ -1,5 +1,5 @@
 object Sdk {
-    const val MIN_SDK_VERSION = 22
+    const val MIN_SDK_VERSION = 21
     const val TARGET_SDK_VERSION = 30
     const val COMPILE_SDK_VERSION = 30
 }
@@ -19,11 +19,10 @@ object Versions {
     const val HILT_VIEWMODEL = "1.0.0-alpha03"
     const val HILT_NAVIGATION = "1.0.0-alpha03"
     const val OKHTTP = "4.9.0"
-    const val COIL = "1.1.0"
     const val LIVEDATAKTX = "2.2.0"
     const val VIEWMODELKTX = "2.2.0"
     const val NAVIGATION = "2.3.0"
-    const val ROOM = "2.2.5"
+    const val ROOM = "2.2.6"
     const val TIMBER = "4.7.1"
     const val MATERIAL = "1.3.0-alpha04"
     const val RECYCLER = "1.1.0"
@@ -40,6 +39,7 @@ object Versions {
     const val MOCKITO_KOTLIN_VERSION = "2.2.0"
     const val MOCKK_VERSION = "1.10.6"
     const val TRUTH = "1.1.2"
+    const val HTTP_MOCKER = "2.0.0-alpha"
 }
 
 object BuildPluginsVersion {
@@ -112,11 +112,9 @@ object NetLibs {
 
     const val SERIALIZATION_ADAPTER = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:${Versions.RETROFIT_SERIAL_ADAPTER}"
 
-}
+    const val HTTP_MOCKER_LIB = "fr.speekha.httpmocker:mocker-okhttp:${Versions.HTTP_MOCKER}"
+    const val HTTP_MOCKER_ADAPTER = "fr.speekha.httpmocker:kotlinx-adapter:${Versions.HTTP_MOCKER}"
 
-
-object CoilImageLib {
-    const val COIL = "io.coil-kt:coil:${Versions.COIL}"
 }
 
 object RoomLib {
@@ -128,13 +126,12 @@ object RoomLib {
 object TestingLib {
     const val JUNIT = "junit:junit:${Versions.JUNIT}"
 
-    //    const val ROBOELECTRIC = "'androidx.test:core:${Versions.ROBOLECTRIC}"
     const val MOCKITO = "org.mockito:mockito-core:${Versions.MOCKITO_VERSION}"
     const val MOCKITO_KOTLIN = "com.nhaarman.mockitokotlin2:mockito-kotlin:${Versions.MOCKITO_KOTLIN_VERSION}"
 
     const val COROUTINE_HELPER = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.COROUTINE_TEST}"
     const val ROOM_TESTING = "androidx.room:room-testing:${Versions.ROOM}"
-    const val RETTROFIT_MOCK = "com.squareup.retrofit2:retrofit-mock:${Versions.RETROFIT}"
+    const val RETROFIT_MOCK = "com.squareup.retrofit2:retrofit-mock:${Versions.RETROFIT}"
     const val MOCKK_TEST = "io.mockk:mockk:${Versions.MOCKK_VERSION}"
     const val TEST_TRUTH = "com.google.truth:truth:${Versions.TRUTH}"
 //    const val MOCKK_COROUTINE = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.MOCKK_VERSION}"
