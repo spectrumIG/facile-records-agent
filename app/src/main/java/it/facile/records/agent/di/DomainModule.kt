@@ -22,9 +22,9 @@ object DomainModule {
 
     @Provides
     @Singleton
-    @RecordDetail
+    @RecordsFileList
     fun provideDetailUseCase(repository: Repository): UseCase {
-        return RecordDetailUseCase(repository)
+        return RecordFileListUseCase(repository)
     }
 
     @Provides
@@ -49,7 +49,7 @@ annotation class RecordsList
 
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
-annotation class RecordDetail
+annotation class RecordsFileList
 
 @Qualifier
 @Retention(AnnotationRetention.BINARY)

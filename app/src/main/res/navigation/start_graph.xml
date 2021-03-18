@@ -21,7 +21,7 @@
     </fragment>
     <fragment
         android:id="@+id/beerDetailFragment"
-        android:name="it.facile.records.agent.recorddetail.RecordDetailFragment"
+        android:name="it.facile.records.agent.recordfilelist.RecordDetailFragment"
         android:label="@string/file_list_detail_title"
         tools:layout="@layout/record_detail_fragment" >
         <argument

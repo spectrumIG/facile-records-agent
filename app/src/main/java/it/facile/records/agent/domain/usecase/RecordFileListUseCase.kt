@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class RecordDetailUseCase @Inject constructor(private val repository: Repository) : UseCase {
+class RecordFileListUseCase @Inject constructor(private val repository: Repository) : UseCase {
 
     suspend fun retrievefilesForRecordBy(id: Int): Flow<List<FileOfRecordUI?>> {
         return repository.fetchRecordFileListByRecord(id).map { value ->

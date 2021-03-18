@@ -1,4 +1,4 @@
-package it.facile.records.agent.recorddetail
+package it.facile.records.agent.recordfilelist
 
 import android.text.format.Formatter
 import android.view.LayoutInflater

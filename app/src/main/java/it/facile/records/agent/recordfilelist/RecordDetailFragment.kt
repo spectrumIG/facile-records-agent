@@ -1,4 +1,4 @@
-package it.facile.records.agent.recorddetail
+package it.facile.records.agent.recordfilelist
 
 import android.content.Intent
 import android.os.Bundle

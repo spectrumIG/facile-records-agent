@@ -10,7 +10,7 @@ import it.facile.records.agent.library.android.entity.Result
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
-import it.facile.records.agent.domain.repository.database.LocalDataStoreImpl as LocalData
+import it.facile.records.agent.domain.repository.database.LocalDataStoreImpl as LocalStore
 
 interface Repository {
 
@@ -31,7 +31,7 @@ interface Repository {
 
 @ExperimentalStdlibApi
 class RepositoryImpl @Inject constructor(
-    @LocalDataStore private val localDataStore: LocalData,
+    @LocalDataStore private val localDataStore: LocalStore,
     @RemoteDataStore private val remoteDataStore: RemoteStore
 ) : Repository {
 

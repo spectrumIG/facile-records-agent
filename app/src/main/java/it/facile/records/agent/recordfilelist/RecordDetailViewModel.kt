@@ -1,14 +1,14 @@
-package it.facile.records.agent.recorddetail
+package it.facile.records.agent.recordfilelist
 
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import it.facile.records.agent.di.DeleteFile
 import it.facile.records.agent.di.InsertFile
-import it.facile.records.agent.di.RecordDetail
+import it.facile.records.agent.di.RecordsFileList
 import it.facile.records.agent.domain.entity.local.FileOfRecordUI
 import it.facile.records.agent.domain.usecase.DeleteFileUseCase
 import it.facile.records.agent.domain.usecase.InsertFileUseCase
-import it.facile.records.agent.domain.usecase.RecordDetailUseCase
+import it.facile.records.agent.domain.usecase.RecordFileListUseCase
 import it.facile.records.agent.domain.usecase.UseCase
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Job
@@ -18,7 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class RecordDetailViewModel @Inject constructor(
     private val defaulDispatcher: CoroutineDispatcher,
-    @RecordDetail private val getRecordsUsecase: UseCase,
+    @RecordsFileList private val getRecordsFileUsecase: UseCase,
     @InsertFile private val insertUsecase: UseCase,
     @DeleteFile private val deleteFileUseCase: UseCase
     ) : ViewModel() {
@@ -28,7 +28,7 @@ class RecordDetailViewModel @Inject constructor(
     var fileForRecord: LiveData<List<FileOfRecordUI?>> = MutableLiveData()
 
     fun fetchRecordDetail(id: Int) {
-        val useCase = getRecordsUsecase as RecordDetailUseCase
+        val useCase = getRecordsFileUsecase as RecordFileListUseCase
 
         fileForRecord = liveData(defaulDispatcher) {
             emitSource(useCase.retrievefilesForRecordBy(id).asLiveData())
