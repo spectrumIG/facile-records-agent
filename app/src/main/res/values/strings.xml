@@ -8,5 +8,7 @@
     <string name="main_list_error_msg">Errors while retrieving records, please try again later</string>
     <string name="permission_alert_text_label">Sorry, this app needs read file permission to be executed. Please, go to Settings and grant them</string>
     <string name="file_list_detail_title">List of file for Record</string>
+    <string name="dialog_text_label">Do you really want to delete this item?</string>
+    <string name="dialog_title_label">Warning</string>
 
 </resources>

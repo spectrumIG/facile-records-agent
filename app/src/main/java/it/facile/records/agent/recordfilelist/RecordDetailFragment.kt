@@ -1,5 +1,7 @@
 package it.facile.records.agent.recordfilelist
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.provider.OpenableColumns
@@ -50,8 +52,8 @@ class RecordDetailFragment : BaseFragment(R.layout.record_detail_fragment) {
         super.onViewCreated(view, savedInstanceState)
         fragmentBindings = RecordDetailFragmentBinding.bind(view)
 
-        val listAdapter = FileForRecordListAdapter{ recordName: String ->
-            detailViewModel.deleteAttachedFileById(recordName,args.recordId)
+        val listAdapter = FileForRecordListAdapter { recordName: String ->
+            createDeleteFileAlertDialog(recordName)
         }
 
         listOfFile = binding.fileListRecycler
@@ -77,6 +79,17 @@ class RecordDetailFragment : BaseFragment(R.layout.record_detail_fragment) {
         }
 
         manageBackNavigation()
+    }
+
+    private fun createDeleteFileAlertDialog(recordName: String) {
+        AlertDialog.Builder(requireContext()).setMessage(getString(R.string.dialog_text_label)).setTitle(getString(R.string.dialog_title_label))
+            .setPositiveButton(android.R.string.ok) { _: DialogInterface, _: Int ->
+
+                detailViewModel.deleteAttachedFileById(recordName, args.recordId)
+
+            }.setNeutralButton(android.R.string.cancel) { dialogInterface: DialogInterface, _: Int ->
+                dialogInterface.dismiss()
+            }.create().show()
     }
 
     private fun manageBackNavigation() {
