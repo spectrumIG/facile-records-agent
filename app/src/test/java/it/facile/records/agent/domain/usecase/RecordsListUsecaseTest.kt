@@ -62,9 +62,9 @@ class RecordsListUsecaseTest {
     fun `verify that correct requested is returned as successfull`() {
         coEvery { repository.getAllRecordsFromServer() } returns Result.Success(mockSuccesResultList)
 
-        val retrieveBeersPaginated = runBlocking { useCase.retrieveRecords() }
+        val retrieveRecords = runBlocking { useCase.retrieveRecords() }
 
-        assertThat(retrieveBeersPaginated.succeded).isTrue()
+        assertThat(retrieveRecords.succeded).isTrue()
     }
 
     @ExperimentalCoroutinesApi
@@ -72,8 +72,8 @@ class RecordsListUsecaseTest {
     fun `verify simple wrong call correct answer`() {
         coEvery { repository.getAllRecordsFromServer() } returns mockErrorResult
 
-        val retrieveBeersPaginated = runBlocking { useCase.retrieveRecords() }
+        val retrieveRecords = runBlocking { useCase.retrieveRecords() }
 
-        assertThat(retrieveBeersPaginated.failed).isTrue()
+        assertThat(retrieveRecords.failed).isTrue()
     }
 }

@@ -10,7 +10,7 @@ import it.facile.records.agent.databinding.RecordItemBinding
 import it.facile.records.agent.domain.entity.local.RecordForUi
 
 class RecordsRecyclerAdapter :
-    ListAdapter<RecordForUi, RecordsRecyclerAdapter.ViewHolder>(BeersDiffCallback()) {
+    ListAdapter<RecordForUi, RecordsRecyclerAdapter.ViewHolder>(RecordDiffCallback()) {
 
     private var data: List<RecordForUi> = ArrayList()
 
@@ -41,7 +41,7 @@ class RecordsRecyclerAdapter :
 
                 binding.recordItemContainer.setOnClickListener {
                     item.recordName?.let { name ->
-                        RecordsListFragmentDirections.actionBeersListFragmentToBeerDetailFragment(item.id, name)
+                        RecordsListFragmentDirections.actionRecordListFragmentToRecordFileFragment(item.id, name)
                     }.let { navDirections -> navDirections?.let { directions -> findNavController().navigate(directions) } }
                 }
             }
@@ -49,7 +49,7 @@ class RecordsRecyclerAdapter :
     }
 }
 
-private class BeersDiffCallback : DiffUtil.ItemCallback<RecordForUi>() {
+private class RecordDiffCallback : DiffUtil.ItemCallback<RecordForUi>() {
     override fun areItemsTheSame(oldItem: RecordForUi, newItem: RecordForUi): Boolean {
         return oldItem.id == newItem.id
     }

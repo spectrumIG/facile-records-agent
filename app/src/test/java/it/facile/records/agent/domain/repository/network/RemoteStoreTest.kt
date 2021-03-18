@@ -73,7 +73,7 @@ class RemoteStoreTest {
 
     @ExperimentalStdlibApi
     @Test
-    fun `test on network success it returns correctly success for list of beers`() {
+    fun `test on network success it returns correctly success for list of records`() {
         coEvery { restApi.retrieveRecordsFromRemote() } returns Response.success(mockedSuccessResponseList)
 
         val response = runBlocking { remoteStore.getAllrecords() }

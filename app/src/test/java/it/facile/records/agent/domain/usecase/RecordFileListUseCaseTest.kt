@@ -65,14 +65,5 @@ class RecordFileListUseCaseTest {
         }
     }
 
-//    @ExperimentalCoroutinesApi
-//    @Test
-//    fun `verify simple paginated wrong call correct answer`() {
-//        coEvery { repository.fetchRecordDetailBy(any()) } returns mockErrorResult
-//
-//        val retrieveBeersPaginated = runBlocking { useCase.retrieveBeerDetailBy(1) }
-//
-//        assertThat(retrieveBeersPaginated.failed).isTrue()
-//    }
 
 }

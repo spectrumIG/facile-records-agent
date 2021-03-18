@@ -94,7 +94,7 @@ class RecordDetailFragment : BaseFragment(R.layout.record_detail_fragment) {
 
     private fun manageBackNavigation() {
         val addCallback = requireActivity().onBackPressedDispatcher.addCallback {
-            findNavController().navigate(R.id.beersListFragment)
+            findNavController().navigate(R.id.recordListFragment)
         }
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, addCallback)
