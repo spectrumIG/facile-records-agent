@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 
-class LocalDataStoreImpl @Inject constructor(private val recordsDao: RecordsDao) : DataStore {
+class LocalStore @Inject constructor(private val recordsDao: RecordsDao) : DataStore {
 
     fun getFilesForRecordsBy(id: Int): Flow<List<FileOfRecord?>> {
         return recordsDao.getAllFileForRecordById(id).map { value ->

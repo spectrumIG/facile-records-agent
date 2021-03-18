@@ -9,14 +9,13 @@ import dagger.hilt.components.SingletonComponent
 import it.facile.records.agent.domain.repository.DataStore
 import it.facile.records.agent.domain.repository.Repository
 import it.facile.records.agent.domain.repository.RepositoryImpl
-import it.facile.records.agent.domain.repository.database.LocalDataStoreImpl
 import it.facile.records.agent.domain.repository.database.LocalDatabase
+import it.facile.records.agent.domain.repository.database.LocalStore
 import it.facile.records.agent.domain.repository.database.dao.RecordsDao
 import it.facile.records.agent.domain.repository.network.RemoteStore
 import it.facile.records.agent.domain.repository.network.RestApi
 import javax.inject.Qualifier
 import javax.inject.Singleton
-import it.facile.records.agent.domain.repository.database.LocalDataStoreImpl as LocalStore
 
 
 @ExperimentalStdlibApi
@@ -34,7 +33,7 @@ object RepositoryModule {
     @Singleton
     @LocalDataStore
     fun providesLocalDataStore(recordsDao: RecordsDao): DataStore {
-        return LocalDataStoreImpl(recordsDao)
+        return LocalStore(recordsDao)
     }
 
     @Provides

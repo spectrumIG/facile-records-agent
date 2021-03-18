@@ -5,12 +5,12 @@ import it.facile.records.agent.di.RemoteDataStore
 import it.facile.records.agent.domain.entity.local.FileOfRecordBusiness
 import it.facile.records.agent.domain.entity.local.RecordBusinessData
 import it.facile.records.agent.domain.entity.local.RecordFile
+import it.facile.records.agent.domain.repository.database.LocalStore
 import it.facile.records.agent.domain.repository.network.RemoteStore
 import it.facile.records.agent.library.android.entity.Result
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
-import it.facile.records.agent.domain.repository.database.LocalDataStoreImpl as LocalStore
 
 interface Repository {
 
