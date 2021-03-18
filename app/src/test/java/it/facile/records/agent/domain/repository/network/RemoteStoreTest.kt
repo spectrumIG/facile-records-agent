@@ -17,8 +17,11 @@ import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.JUnit4
 import retrofit2.Response
 
+@RunWith(JUnit4::class)
 class RemoteStoreTest {
     @ExperimentalCoroutinesApi
     @get:Rule
